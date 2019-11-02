@@ -13,48 +13,46 @@ namespace NodeGraph.Editor
 
     public class ConnectionPoint
     {
+        private static float STATIC_OFFSET_Y = 15.0f;
+        
         private Rect m_rect;
-        public Rect Rect { get { return m_rect; } }
+        public Rect Rect 
+        { 
+            get { return m_rect; }
+            set { m_rect = value; }
+        }
         private ConnectionPointType m_type;
+        public ConnectionPointType Direction
+        {
+            get { return m_type; }
+        }
+        
         private Node m_node;
         public Node Node { get { return m_node; } }
-        private GUIStyle m_style;
 
-        public Action<ConnectionPoint> OnClickConnectionPoint;
 
-        public ConnectionPoint(Node node, ConnectionPointType type, GUIStyle style, Action<ConnectionPoint> onClickConnectionPoint)
+        public ConnectionPoint(Node node, ConnectionPointType type)
         {
             m_node = node;
             m_type = type;
-            m_style = style;
-            OnClickConnectionPoint = onClickConnectionPoint;
             m_rect = new Rect(0, 0, 20, 20);
         }
 
-        public void Draw()
+        public virtual void CalculateConnectionRect(int order)
         {
-            m_rect.y = m_node.Rect.y + (m_node.Rect.height * 0.5f) - m_rect.height * 0.5f;
+            float headerHeight = Node.HeaderStyle.fixedHeight + STATIC_OFFSET_Y;
+            float localPosition = order * Node.ConnectionPointStyle.fixedHeight;
+            Vector2 nodePosition = new Vector2();
 
-            switch(m_type)
-            {
-                case ConnectionPointType.In:
-                    m_rect.x = m_node.Rect.x - m_rect.width + 8f;
-                    break;
+            float xAnchor = GetNodeAnchorX();
+            nodePosition += new Vector2(xAnchor, localPosition + headerHeight);
+            
+            m_rect.center = nodePosition;
+        }
 
-                case ConnectionPointType.Out:
-                    m_rect.x = m_node.Rect.x + m_node.Rect.width - 8f;
-                    break;
-            }
-
-            if (m_style == null)
-                Debug.LogError("Style is null");
-            if (m_rect == null)
-                Debug.LogError("Rect is null");
-
-            if (GUI.Button(m_rect, "", m_style))
-            {
-                OnClickConnectionPoint?.Invoke(this);
-            }
+        private float GetNodeAnchorX()
+        {
+            return m_type == ConnectionPointType.In ? 0.0f : m_node.Rect.width;
         }
     }
 }

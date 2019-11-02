@@ -15,8 +15,12 @@ namespace NodeGraph.Editor
 
         public Action<Connection> OnClickConnection;
 
+        private Guid m_id;
+        public Guid ID { get{ return m_id; }} 
+
         public Connection(ConnectionPoint input, ConnectionPoint output, Action<Connection> onClickAction)
         {
+            m_id = Guid.NewGuid();
             m_input = input;
             m_output = output;
             OnClickConnection = onClickAction;
@@ -28,7 +32,7 @@ namespace NodeGraph.Editor
                 Input.Rect.center,
                 Output.Rect.center,
                 Input.Rect.center + Vector2.left * 50.0f,
-                Output.Rect.center + Vector2.left * 50.0f,
+                Output.Rect.center - Vector2.left * 50.0f,
                 Color.white,
                 null,
                 2f
