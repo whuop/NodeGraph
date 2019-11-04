@@ -1,0 +1,40 @@
+VisualProperty {
+
+}
+
+VisualProperty > .unity-base-field {
+    margin-left: 4;
+    margin-right: 4;
+    margin-top: 2;
+    margin-bottom: 2;
+    padding: 0;
+    background-image: none;
+}
+
+VisualProperty .unity-label{
+    visibility: visible;
+}
+
+/*VisualProperty > .unity-base-field {
+    min-width: 0;
+    max-width: 150;
+    width: 100;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-content: center;
+}*/
+
+
+/* Used for text field with unsupported field type */
+ErrorText > #error-text {
+    visibility: visible;
+    color: rgb(245, 110, 110);
+    padding-left: 2;
+    padding-right: 2;
+    padding-bottom: 2;
+    padding-top: 1;
+    margin-bottom: 2;
+    margin-top: 0;
+    flex: 0 0 auto;
+    white-space: nowrap;
+}

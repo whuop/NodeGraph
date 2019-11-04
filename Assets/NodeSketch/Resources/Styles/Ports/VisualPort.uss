@@ -1,0 +1,195 @@
+* THIS FILE IS FROM GRAPHVIEW BUT CONTAINS MODIFICATIONS */
+
+VisualPort {
+    height: 24;
+    align-items: center;
+    padding-left: 4;
+    padding-right: 4;
+    port-color: rgb(200, 200, 200);
+    disabled-port-color: rgb(70, 70, 70);
+}
+
+VisualPort.input {
+    flex-direction: row;
+}
+
+VisualPort.output {
+    flex-direction: row-reverse;
+}
+
+VisualPort > #connector {
+    border-color: rgb(70, 70, 70);
+    background-color: #212121;
+    width: 8;
+    height: 8;
+    border-radius: 8;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 4;
+    margin-right: 4;
+    border-left-width:1;
+    border-top-width:1;
+    border-right-width:1;
+    border-bottom-width:1;
+}
+
+VisualPort > #connector:hover {
+    border-color:  #f0f0f0
+}
+
+VisualPort > #connector > #cap
+{
+    background-color: #212121;
+    width: 4;
+    height: 4;
+    border-radius: 4;
+}
+
+VisualPort > #connector > #cap:hover
+{
+    background-color: #f0f0f0;
+}
+
+VisualPort > #connector.portHighlight {
+    border-color: #f0f0f0;
+}
+
+VisualPort > #type {
+    text-color: #c1c1c1;
+    font-size:11;
+    height:16;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 4;
+    margin-right: 4;
+}
+
+VisualPort.input > #type {
+    text-alignment: middle-left;
+}
+
+VisualPort.output > #type {
+    text-alignment:middle-right;
+}
+
+/*******************************/
+/* LogicPorts colors by types */
+/*******************************/
+
+VisualPort.typeTexture {
+    port-color:#FF8B8B;
+}
+
+VisualPort.typeTexture2D {
+    /* Same as typeTexture */
+    port-color:#FF8B8B;
+}
+
+VisualPort.typeCubemap {
+	/* Same as typeTexture */
+    port-color:#FF8B8B;
+}
+
+VisualPort.typeGraphScript {
+    /* Todo: there is no such type in Unity atm */
+    port-color:#E681BA;
+}
+
+VisualPort.typeFloat4 {
+    port-color:#FBCBF4;
+}
+
+VisualPort.typeVector4 {
+    /* Same as typeFloat4 */
+    port-color:#FBCBF4;
+}
+
+VisualPort.typeQuaternion {
+    /* Same as typeFloat4 */
+    port-color:#FBCBF4;
+}
+
+VisualPort.typeColor {
+    /* Same as typeFloat4 */
+    port-color:#FBCBF4;
+}
+
+VisualPort.typeInt {
+    port-color:#9481E6;
+}
+
+VisualPort.typeInt32 {
+    /* Same as typeInt */
+    port-color:#9481E6;
+}
+
+/* TEMP STUFF THAT SHOULD ACTUALLY STAY IN GRAPHVIEW */
+VisualPort.typeInt64 {
+    /* Same as typeInt */
+    /* todo we might want to differentiate that from int32 */
+    port-color:#9481E6;
+}
+
+VisualPort.typeBoolean {
+    port-color:#9481E6;
+}
+
+VisualPort.typeMatrix {
+    port-color:#8FC1DF;
+}
+
+VisualPort.typeMatrix4x4 {
+    /* Same as typeMatrix */
+    port-color:#8FC1DF;
+}
+
+VisualPort.typeGameObject {
+    port-color:#8FC1DF;
+}
+
+VisualPort.Vector1 {
+    port-color:#84E4E7;
+}
+
+VisualPort.typeFloat1 {
+    /* Same as typeFloat */
+    port-color:#84E4E7;
+}
+
+VisualPort.typeSingle {
+    /* Same as typeFloat */
+    port-color:#84E4E7;
+}
+
+VisualPort.typeDouble {
+    /* Same as typeFloat */
+    /* todo we might want to differentiate that from float */
+    port-color:#84E4E7;
+}
+
+VisualPort.typeFloat2 {
+    port-color:#9AEF92;
+}
+
+VisualPort.typeVector2 {
+    /* Same as typeFloat2 */
+    port-color:#9AEF92;
+}
+
+VisualPort.typeComponent {
+    port-color:#C9F774;
+}
+
+VisualPort.typeFloat3 {
+    port-color:#F6FF9A;
+}
+
+VisualPort.typeVector3 {
+    /* Same as typeFloat3 */
+    port-color:#F6FF9A;
+}
+
+VisualPort.typeString {
+    port-color:#FCD76E;
+}
