@@ -8,13 +8,14 @@ using UnityEditor;
 using System;
 using UnityEditor.Experimental.GraphView;
 using NodeSketch.Attributes;
+using NodeSketch.Editor.GraphElements;
 
 namespace NodeSketch.Editor
 {
     public class VisualProperty : VisualElement
     {
-        private VisualNode m_owner;
-        public VisualNode Owner { get { return m_owner; } set { m_owner = value; } }
+        private GraphNode m_owner;
+        public GraphNode Owner { get { return m_owner; } set { m_owner = value; } }
 
         private FieldInfo m_fieldInfo;
         public FieldInfo FieldInfo { get { return m_fieldInfo; } }
@@ -89,17 +90,7 @@ namespace NodeSketch.Editor
                     var baseFieldType = typeof(BaseField<>).MakeGenericType(type);
                     PropertyInfo info = baseFieldType.GetProperty("value");
                     info.SetValue(visualElement, m_fieldInfo.GetValue(m_fieldOwner));
-
-                    //var textInput = visualElement.Q("unity-text-input");
-                    //if (textInput != null)
-                    //    textInput.AddToClassList("static-field-width");
-                    //visualElement[0].AddToClassList("static-field-width");
-                    
                     method?.Invoke(this, new object[] { visualElement });
-                }
-                else
-                {
-                    //visualElement.AddToClassList("error-text");
                 }
                 
                 this.Add(visualElement);

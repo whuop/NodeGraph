@@ -1,5 +1,21 @@
+/*
+    GRAPH VIEW STYLING
+*/
+
 GraphView {
     flex-direction: row;
     background-color: #202020;
     flex: 1;
+}
+
+/*
+    GRID BACKGROUND STYLING
+*/
+
+GridBackground {
+    --spacing: 50;
+    --thick-lines: 10;
+    --line-color: rgba(0,0,0,0.18);
+    --thick-line-color: rgba(0,0,0,0.38);
+    --grid-background-color: rgba(43,43,43,1);
 }

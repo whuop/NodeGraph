@@ -13,22 +13,75 @@ MonoBehaviour:
   m_Name: graph
   m_EditorClassIdentifier: 
   m_nodes:
-  - m_guid: 9a5dacb7-08fd-4b5b-b334-664f7569952a
+  - m_guid: f139e4da-5da4-4283-a357-22d325bbb96b
     m_nodeRuntimeTypeString: TestNodeAgain, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_editorPosition: {x: 539, y: 179, z: 0}
-    m_nodeJsonData: "{\n    \"CoolFloat\": 0.0,\n    \"TestFloat\": 1.3370000123977662,\n
-      \   \"TestCurve\": {\n        \"serializedVersion\": \"2\",\n        \"m_Curve\":
-      [\n            {\n                \"serializedVersion\": \"3\",\n                \"time\":
-      0.0,\n                \"value\": 0.0,\n                \"inSlope\": 2.0,\n                \"outSlope\":
-      2.0,\n                \"tangentMode\": 0,\n                \"weightedMode\":
-      0,\n                \"inWeight\": 0.0,\n                \"outWeight\": 0.0\n
-      \           },\n            {\n                \"serializedVersion\": \"3\",\n
-      \               \"time\": 1.0,\n                \"value\": 1.0,\n                \"inSlope\":
-      0.0,\n                \"outSlope\": 0.0,\n                \"tangentMode\": 0,\n
-      \               \"weightedMode\": 0,\n                \"inWeight\": 0.0,\n                \"outWeight\":
-      0.0\n            }\n        ],\n        \"m_PreInfinity\": 2,\n        \"m_PostInfinity\":
-      2,\n        \"m_RotationOrder\": 4\n    },\n    \"TestString\": \"Leet\",\n
-      \   \"TestInt\": 1337,\n    \"TestBool\": true\n}"
+    m_editorPosition: {x: -354, y: 221, z: 0}
+    m_nodeJsonData: "{\n    \"CoolFloat\": 0.0,\n    \"TestFloat\": 0.0,\n    \"TestCurve\":
+      {\n        \"serializedVersion\": \"2\",\n        \"m_Curve\": [],\n        \"m_PreInfinity\":
+      2,\n        \"m_PostInfinity\": 2,\n        \"m_RotationOrder\": 4\n    },\n
+      \   \"TestString\": \"\",\n    \"TestInt\": 0,\n    \"TestBool\": false\n}"
     m_isExpanded: 1
-  m_edges: []
+  - m_guid: 873423dc-13d0-4ab8-b038-6a5178a104a7
+    m_nodeRuntimeTypeString: NodeSketch.Nodes.BoolValueNode, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_editorPosition: {x: -103, y: 288, z: 0}
+    m_nodeJsonData: 
+    m_isExpanded: 1
+  - m_guid: a7a2528c-f38b-4987-bb90-b852ba14a4f7
+    m_nodeRuntimeTypeString: TryingANamespace.TestNode, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_editorPosition: {x: 92, y: 279, z: 0}
+    m_nodeJsonData: "{\n    \"TestInt\": 0,\n    \"TestBool\": false,\n    \"TestFloat\":
+      0.0\n}"
+    m_isExpanded: 1
+  - m_guid: e4f51941-5879-406e-b3ce-2f9a2fadacca
+    m_nodeRuntimeTypeString: TestNodeAgain, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_editorPosition: {x: 126, y: 464, z: 0}
+    m_nodeJsonData: "{\n    \"CoolFloat\": 0.0,\n    \"TestFloat\": 0.0,\n    \"TestCurve\":
+      {\n        \"serializedVersion\": \"2\",\n        \"m_Curve\": [],\n        \"m_PreInfinity\":
+      2,\n        \"m_PostInfinity\": 2,\n        \"m_RotationOrder\": 4\n    },\n
+      \   \"TestString\": \"\",\n    \"TestInt\": 0,\n    \"TestBool\": false\n}"
+    m_isExpanded: 1
+  - m_guid: 10f19064-60d8-4620-9813-79728bad2a59
+    m_nodeRuntimeTypeString: TestNodeAgain, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_editorPosition: {x: -756, y: 225, z: 0}
+    m_nodeJsonData: "{\n    \"CoolFloat\": 0.0,\n    \"TestFloat\": 0.0,\n    \"TestCurve\":
+      {\n        \"serializedVersion\": \"2\",\n        \"m_Curve\": [],\n        \"m_PreInfinity\":
+      2,\n        \"m_PostInfinity\": 2,\n        \"m_RotationOrder\": 4\n    },\n
+      \   \"TestString\": \"\",\n    \"TestInt\": 0,\n    \"TestBool\": false\n}"
+    m_isExpanded: 1
+  - m_guid: 4f3e18d2-051a-49f3-805a-9d5b1b8bfd25
+    m_nodeRuntimeTypeString: TestNodeAgain, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_editorPosition: {x: 93, y: 13, z: 0}
+    m_nodeJsonData: "{\n    \"CoolFloat\": 0.0,\n    \"TestFloat\": 0.0,\n    \"TestCurve\":
+      {\n        \"serializedVersion\": \"2\",\n        \"m_Curve\": [],\n        \"m_PreInfinity\":
+      2,\n        \"m_PostInfinity\": 2,\n        \"m_RotationOrder\": 4\n    },\n
+      \   \"TestString\": \"\",\n    \"TestInt\": 0,\n    \"TestBool\": false\n}"
+    m_isExpanded: 1
+  - m_guid: 29cdf6cc-7715-4dad-9727-749716a7a17b
+    m_nodeRuntimeTypeString: NodeSketch.Nodes.BoolValueNode, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_editorPosition: {x: -405, y: 544, z: 0}
+    m_nodeJsonData: 
+    m_isExpanded: 1
+  - m_guid: 6f66ac13-bcc1-4559-8c4a-4667f3b45e7a
+    m_nodeRuntimeTypeString: NodeSketch.Nodes.BoolValueNode, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_editorPosition: {x: -452, y: 515, z: 0}
+    m_nodeJsonData: "{\n    \"Value\": false,\n    \"InputValue\": false\n}"
+    m_isExpanded: 1
+  - m_guid: 3aadf3d2-9546-40c9-b11f-216a21878673
+    m_nodeRuntimeTypeString: NodeSketch.Nodes.PrettyCoolStructValueNode, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_editorPosition: {x: -458, y: 604, z: 0}
+    m_nodeJsonData: "{\n    \"Poopsicle\": 0.0\n}"
+    m_isExpanded: 1
+  m_edges:
+  - m_sourceNodeGUID: 3aadf3d2-9546-40c9-b11f-216a21878673
+    m_sourcePortMemberName: Value
+    m_targetNodeGUID: e4f51941-5879-406e-b3ce-2f9a2fadacca
+    m_targetPortMemberName: TestingAgain

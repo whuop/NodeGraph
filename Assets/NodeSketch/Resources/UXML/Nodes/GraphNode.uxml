@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xmlns:nodesketch="NodeSketch.Editor"
+
+xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
+xsi:schemaLocation="
+                        UnityEngine.UIElements ../../../../UIElementsSchema/UnityEngine.UIElements.xsd
+                        UnityEditor.UIElements ../../../../UIElementsSchema/UnityEditor.UIElements.xsd
+                        UnityEditor.Rendering.Experimental.LookDev ../../../../UIElementsSchema/UnityEditor.Rendering.Experimental.LookDev.xsd
+                        UnityEditor.PackageManager.UI ../../../../UIElementsSchema/UnityEditor.PackageManager.UI.xsd
+                        UnityEditor.Experimental.GraphView ../../../../UIElementsSchema/UnityEditor.Experimental.GraphView.xsd
+"
+>
+<engine:VisualElement name="node-border">
+    <engine:VisualElement name="title">
+        <engine:Label name="title-label" class="unity-text-element unity-label" />
+        <engine:VisualElement name="title-button-container">
+        <engine:VisualElement name="collapse-button">
+            <engine:VisualElement name="icon" />
+        </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+    <engine:VisualElement name="contents">
+        <engine:VisualElement name="divider" class="horizontal hidden" />
+        <engine:VisualElement name="top">
+            <engine:VisualElement name="input" />
+            <engine:VisualElement name="divider" class="vertical hidden" />
+            <engine:VisualElement name="output" />
+        </engine:VisualElement>
+        <engine:VisualElement name="bottom">
+            <engine:VisualElement name="divider" class="horizontal"/>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:VisualElement>
+<engine:VisualElement name="selection-border" />
+</engine:UXML>

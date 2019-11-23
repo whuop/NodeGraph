@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NodeSketch.Editor.GraphElements;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -20,8 +21,8 @@ namespace NodeSketch.Editor.Ports
         private readonly bool m_allowMultiConnections;
         private readonly Type m_portType;
 
-        private VisualNode m_owner;
-        public VisualNode Owner { get => m_owner; set => m_owner = value; }
+        private GraphNode m_owner;
+        public GraphNode Owner { get => m_owner; set => m_owner = value; }
 
         public string DisplayName { get => m_displayName + " (" + m_portType.Name + ")"; }
         public string MemberName { get => m_memberName; }

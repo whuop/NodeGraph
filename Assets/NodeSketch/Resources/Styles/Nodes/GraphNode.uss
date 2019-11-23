@@ -1,0 +1,336 @@
+GraphNode 
+{
+    width: 300;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* Default text size for all text elements in this node */
+GraphNode .unity-text-element
+{
+    font-size: 11;
+}
+  
+GraphNode.graphElement.node.MaterialNode 
+{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* The background color and shape for the silhouette of the node */
+GraphNode #node-border
+{
+    background-color: rgb(63, 63, 63);
+    border-radius:6;
+    border-left-width: 1;
+    border-right-width: 1;
+    border-top-width: 1;
+    border-bottom-width: 1;
+    margin-top: 1;
+    margin-bottom: 1;
+    margin-left: 1;
+    margin-right: 1;
+}
+
+  GraphNode #title
+  {
+    background-color: rgba(0,0,0,0);
+    flex-direction: row;
+    justify-content: space-between;
+    height: 36;
+  }
+
+  GraphNode #title-label
+  {
+      color: rgba(193,193,193,1);
+      -unity-text-align: middle-left;
+      margin-top: 6;
+      margin-bottom: 6;
+      margin-left: 6;
+      margin-right: 0;
+      padding-left: 2;
+  }
+
+  GraphNode #title-button-container
+  {
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+  GraphNode #collapse-button
+  {
+      width: 28;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 4;
+  }
+
+  GraphNode #collapse-button > #icon
+  {
+      width: 12;
+      height: 12;
+      align-self: center;
+      opacity: 0.5;
+      visibility: hidden;
+  }
+
+  GraphNode #contents
+  {
+      flex: 1 0 auto;
+  }
+
+  GraphNode #contents > #top
+  {
+      flex-direction: row;
+  }
+
+  GraphNode #contents > #bottom
+  {
+      flex-direction: column;
+  }
+
+  GraphNode #input
+  {
+      background-color: rgba(125,125,125,0.0);
+      padding-top: 4;
+      padding-bottom: 4;
+      flex: 1 0 auto;
+  }
+
+  GraphNode #output
+  {
+      background-color: rgba(43,43,43,0.8);
+      padding-top: 4;
+      padding-bottom: 4;
+      flex: 1 0 auto;
+  }
+
+  .node
+  {
+      border-radius: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 0;
+      border-left-width: 0;
+      border-right-width: 0;
+      border-top-width: 0;
+      border-bottom-width: 0;
+      align-items: stretch;
+  }
+
+  #selection-border
+  {
+    border-radius: 8;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    margin-top: 1;
+    margin-bottom: 1;
+    margin-left: 1;
+    margin-right: 1;
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+  }
+
+  #divider
+  {
+      background-color: rgba(35, 35, 35, 0.804);
+      border-color: rgba(35, 35, 35, 0.804);
+  }
+
+  #divider.vertical
+  {
+      width: 0.01;
+      border-right-width: 1;
+  }
+
+  #divider.vertical.hidden
+  {
+      width: 0;
+      border-right-width: 0;
+  }
+
+  #divider.horizontal
+  {
+      height: 0.01;
+      border-bottom-width: 1;
+  }
+
+  .hidden
+  {
+      background-color: rgba(255, 0, 0, 1);
+      width:0;
+      height:0;
+      min-height:0;
+      min-width:0;
+      max-height:0;
+      max-width:0;
+      border-left-width:0;
+      border-right-width:0;
+      border-top-width:0;
+      border-bottom-width:0;
+      padding-top: 0;
+      padding-right: 0;
+      padding-bottom: 0;
+      padding-left: 0;
+      margin-top: 0;
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+  }
+
+  GraphNode #default-background-color{
+      background-color: rgba(63, 63, 63, 1);
+  }
+  
+  GraphNode #collapsible-area {
+      width: 0;
+      height: 0;
+  }
+  
+  GraphNode #previewFiller.expanded {
+      width: 200;
+      padding-bottom: 200;
+  }
+  
+  GraphNode #previewFiller,
+  GraphNode #controls {
+      background-color: rgba(63, 63, 63, 1);
+  }
+  
+  GraphNode #controls > #items {
+      padding-top: 4;
+      padding-bottom: 4;
+  }
+  
+  
+  GraphNode > #previewContainer {
+      position-type: absolute;
+      position-bottom: 4;
+      position-left: 4;
+      border-radius: 6;
+      padding-top: 6;
+  }
+  
+  GraphNode > #previewContainer > #preview  {
+      width: 200;
+      height: 200;
+      align-items:center;
+  }
+  
+  GraphNode > #previewContainer > #preview > #collapse {
+      background-color: #000;
+      border-color: #F0F0F0;
+      width: 0;
+      height: 0;
+      opacity: 0;
+      border-radius: 1;
+      border-top-width: 1;
+      border-bottom-width: 1;
+      border-left-width: 1;
+      border-right-width: 1;
+      margin-top: 4;
+      align-items:center;
+      justify-content:center;
+  }
+  
+  
+  GraphNode:hover > #previewContainer > #preview > #collapse {
+      width: 20;
+      height: 20;
+      opacity: 0.6;
+  }
+  
+  GraphNode > #previewContainer > #preview > #collapse > #icon  {
+      background-image : resource("GraphView/Nodes/PreviewCollapse.png");
+      width: 16;
+      height: 16;
+  }
+  
+  GraphNode > #previewContainer > #preview > #collapse:hover {
+      opacity: 1.0;
+  }
+  
+  GraphNode #previewFiller > #expand {
+      align-self: center;
+      width: 56;
+      height: 16;
+      flex-direction: row;
+      justify-content:center;
+  }
+  
+  GraphNode #previewFiller > #expand > #icon {
+      align-self: center;
+      background-image : resource("GraphView/Nodes/PreviewExpand.png");
+      width: 16;
+      height: 16;
+  }
+  
+  GraphNode #previewFiller.collapsed > #expand:hover {
+      background-color: #2B2B2B;
+  }
+  
+  GraphNode #previewFiller.expanded > #expand {
+      height: 0;
+  }
+  
+  
+  GraphNode > #resize {
+      background-image : resource("GraphView/Nodes/NodeChevronLeft.png");
+      position-type: absolute;
+      position-right: 5;
+      position-bottom: 5;
+      width: 10;
+      height: 10;
+      cursor: resize-up-left;
+  }
+  
+  GraphNode > #portInputContainer {
+      position-type: absolute;
+      width: 212;
+      position-left: -200;
+      position-top: 46;
+  }
+  
+  GraphNode > #settings-container {
+      background-color : rgb(63, 63, 63);
+  }
+  
+  #settings-button {
+      width: 16;
+      align-self: center;
+      justify-content: center;
+      padding-left: 8;
+  }
+  
+  #settings-button > #icon {
+      width : 12;
+      height : 12;
+      align-self: center;
+      visibility: hidden;
+      background-image : resource("Icons/SettingsIcons");
+  }
+  
+  .node:hover #settings-button > #icon {
+      visibility: visible;
+  }
+  
+  #settings-button:hover > #icon {
+      align-self: center;
+      background-color: #2B2B2B;
+      background-image : resource("Icons/SettingsIcons_hover");
+  }
+  
+  #settings-button.clicked > #icon{
+      background-color: #2B2B2B;
+      background-image : resource("Icons/SettingsIcons_hover");
+      visibility: visible;
+  }
+
+  

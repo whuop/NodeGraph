@@ -11,6 +11,11 @@ namespace NodeSketch.Editor
         public NodeSketchGraphView()
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Styles/GraphView"));
+
+            var gridBackground = new GridBackground();
+            gridBackground.pickingMode = PickingMode.Ignore;
+            Add(gridBackground);
+            gridBackground.SendToBack();
         }
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)

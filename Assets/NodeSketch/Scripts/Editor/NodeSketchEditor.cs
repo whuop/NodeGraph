@@ -3,9 +3,105 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor.Experimental.GraphView;
+using System;
+using NodeSketch.Attributes;
+using System.Reflection;
+using NodeSketch.Editor.DataProviders;
+using System.Collections.Generic;
 
 namespace NodeSketch.Editor
 {
+    public class GraphNodeDefaultProvider : NodeProvider
+    {
+        protected override NodeLibrary ConstructNodeLibrary(NodeLibrary library)
+        {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            
+            foreach(var assembly in assemblies)
+            {
+                Type[] types = assembly.GetTypes();
+                foreach(var type in types)
+                {
+                    if (!type.IsAbstract && type.IsSubclassOf(typeof(NodeSketch.Nodes.Node)))
+                    {
+                        TitleAttribute titleAttrib = type.GetCustomAttribute<TitleAttribute>(false);
+
+                        string[] title;
+                        if (titleAttrib != null)
+                        {
+                            title = titleAttrib.Title.Split('/');
+                        }
+                        else
+                        {
+                            title = type.FullName.Split('.');
+                        }
+
+                        library.Add(new NodeTemplate(title, "UXML/Nodes/GraphNode", "Styles/Nodes/GraphNode", type));
+                    }
+                }
+            }
+
+            return library;
+        }
+    }
+
+    public class GraphNodeDefaultFieldProvider : FieldProvider
+    {
+        protected override void ConstructFieldTemplates(NodeProvider nodeProvider, Dictionary<Type, NodeFieldTemplate> templates)
+        {
+            NodeLibrary library = nodeProvider.GetNodeLibrary();
+            foreach(var nodeTemplate in library.nodeTemplates)
+            {
+                Type type = nodeTemplate.RuntimeNodeType;
+
+                var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                foreach(var field in fields)
+                {
+                    bool isPrivate = field.IsPrivate;
+
+
+                    if (IsOutput(field))
+                    {
+
+                    }
+                    else if (IsInput(field))
+                    {
+
+                    }
+                    else
+                    {
+                        if (isPrivate)
+                        {
+                            if (IsSerializable(field))
+                            {
+
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool IsInput(FieldInfo field)
+        {
+            return field.GetCustomAttribute<InputAttribute>(false) != null ? true : false;
+        }
+
+        private bool IsOutput(FieldInfo field)
+        {
+            return field.GetCustomAttribute<OutputAttribute>(false) != null ? true : false;
+        }
+
+        private bool IsSerializable(FieldInfo field)
+        {
+            return field.GetCustomAttribute<SerializeField>(false) != null ? true : false;
+        }
+    }
+
     public class NodeSketchEditor : EditorWindow
     {
         [MenuItem("Window/UIElements/NodeSketchEditor")]
@@ -28,11 +124,14 @@ namespace NodeSketch.Editor
 
         //private SearchWindowProvider m_searchWindowProvider;
         //private EdgeConnectorListener m_edgeConnectorListener;
-        private EditorView m_editorView;
+        private NodeSketchEditorView m_editorView;
+        private NodeProvider m_nodeProvider;
+        private FieldProvider m_fieldProvider;
 
         public void Initialize()
         {
-            m_editorView = new EditorView(this);
+            m_nodeProvider = new GraphNodeDefaultProvider();
+            m_editorView = new NodeSketchEditorView(this, m_nodeProvider);
             rootVisualElement.Add(m_editorView);
         }
 

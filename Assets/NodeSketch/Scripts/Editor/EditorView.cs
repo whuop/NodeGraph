@@ -1,4 +1,6 @@
-﻿using NodeSketch.Editor.Ports;
+﻿using NodeSketch.Editor.DataProviders;
+using NodeSketch.Editor.GraphElements;
+using NodeSketch.Editor.Ports;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -8,31 +10,33 @@ using UnityEngine.UIElements;
 
 namespace NodeSketch.Editor
 {
-    public class EditorView : VisualElement
+    public class NodeSketchEditorView : VisualElement
     {
         private NodeGraph m_graph;
         private NodeSketchGraphView m_graphView;
         private EditorWindow m_editorWindow;
         private EdgeConnectorListener m_edgeConnectorListener;
         private SearchWindowProvider m_searchWindowProvider;
+        private NodeProvider m_nodeProvider;
+        private FieldProvider m_fieldProvider;
 
-        public EditorView(EditorWindow window)
+        public NodeSketchEditorView(EditorWindow window, NodeProvider nodeProvider, FieldProvider fieldProvider)
         {
             m_editorWindow = window;
             m_graph = ScriptableObject.CreateInstance<NodeGraph>();
+            m_nodeProvider = nodeProvider;
+            m_fieldProvider = fieldProvider;
+            m_fieldProvider.ConstructNodeFieldTemplates(m_nodeProvider);
             
             styleSheets.Add(Resources.Load<StyleSheet>("Styles/EditorView"));
-            
+
             Add(CreateToolbar());
             var contentView = CreateContentView();
-            /*var grid = new IMGUIContainer(() => {
-                DrawGrid(20, 0.2f, Color.gray, m_graphView);
-                DrawGrid(100, 0.4f, Color.gray, m_graphView);
-            });*/
-            Add(contentView);
+            Add(contentView);   
+            
 
             m_searchWindowProvider = ScriptableObject.CreateInstance<SearchWindowProvider>();
-            m_searchWindowProvider.Initialize(window, this, m_graphView);
+            m_searchWindowProvider.Initialize(window, this, nodeProvider, m_graphView);
             m_edgeConnectorListener = new EdgeConnectorListener(this, m_searchWindowProvider);
             m_searchWindowProvider.SetEdgeConnectorListener(m_edgeConnectorListener);
 
@@ -82,7 +86,7 @@ namespace NodeSketch.Editor
             var nodes = m_graphView.nodes.ToList();
             foreach(var node in nodes)
             {
-                ((VisualNode)node).SynchronizeToSerializedNode();
+                ((GraphNode)node).SynchronizeToSerializedNode();
             }
 
             AssetDatabase.CreateAsset(m_graph, path);
@@ -112,7 +116,6 @@ namespace NodeSketch.Editor
             for(int i = 0; i < graph.Nodes.Count; i++)
             {
                 var node = m_searchWindowProvider.CreateNode(graph.Nodes[i]);
-                node.CreateNodeGUI();
                 AddNode(node, node.name);
             }
 
@@ -127,7 +130,7 @@ namespace NodeSketch.Editor
 
                 foreach(var node in nodes)
                 {
-                    VisualNode vNode = (VisualNode)node;
+                    GraphNode vNode = (GraphNode)node;
 
                     Debug.Log("Node GUID: " + vNode.NodeGuid + " Edge GUIDS: " + serializedEdge.SourceNodeGUID + " ----> " + serializedEdge.TargetNodeGUID);
 
@@ -165,35 +168,7 @@ namespace NodeSketch.Editor
 
         }
 
-        private void DrawGrid(float gridSpacing, float gridOpacity, Color gridColor, VisualElement contentView)
-        {
-            int widthDivs = Mathf.CeilToInt(contentView.worldBound.width / gridSpacing);
-            int heightDivs = Mathf.CeilToInt(contentView.worldBound.height / gridSpacing);
-            Vector3 drag = Vector3.zero;
-
-            Handles.BeginGUI();
-            Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
-
-            Vector3 offset = contentView.transform.position;
-                
-            offset += drag * 0.5f;
-            Vector3 newOffset = new Vector3(offset.x % gridSpacing, offset.y % gridSpacing, 0);
-
-            for (int i = 0; i < widthDivs; i++)
-            {
-                Handles.DrawLine(new Vector3(gridSpacing * i, -gridSpacing, 0) + newOffset, new Vector3(gridSpacing * i, contentView.worldBound.height, 0f) + newOffset);
-            }
-
-            for (int j = 0; j < heightDivs; j++)
-            {
-                Handles.DrawLine(new Vector3(-gridSpacing, gridSpacing * j, 0) + newOffset, new Vector3(contentView.worldBound.width, gridSpacing * j, 0f) + newOffset);
-            }
-
-            Handles.color = Color.white;
-            Handles.EndGUI();
-        }
-
-            private VisualElement CreateContentView()
+        private VisualElement CreateContentView()
         {
             var content = new VisualElement { name = "content" };
             {
@@ -204,6 +179,8 @@ namespace NodeSketch.Editor
                 };
 
                 
+                
+
                 m_graphView.SetupZoom(0.05f, ContentZoomer.DefaultMaxScale);
                 m_graphView.AddManipulator(new ContentDragger());
                 m_graphView.AddManipulator(new SelectionDragger());
@@ -228,7 +205,7 @@ namespace NodeSketch.Editor
                 // _logicGraphEditorObject.RegisterCompleteObjectUndo("Graph Element Moved.");
                 foreach (var element in graphViewChange.movedElements)
                 {
-                    VisualNode nodeEditor = element as VisualNode;
+                    GraphNode nodeEditor = element as GraphNode;
                     nodeEditor.Position = element.GetPosition().position;
                     //nodeEditor.SerializedNode.JSON = JsonUtility.ToJson(nodeEditor);
                 }
@@ -263,7 +240,7 @@ namespace NodeSketch.Editor
             {
             }
         }
-        public void AddNode(VisualNode node, string name, bool suppressGraphAdd = false)
+        public void AddNode(GraphNode node, string name, bool suppressGraphAdd = false)
         {
             node.Owner = m_graphView;
 

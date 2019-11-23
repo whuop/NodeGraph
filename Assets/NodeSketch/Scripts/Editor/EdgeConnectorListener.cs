@@ -7,10 +7,10 @@ namespace NodeSketch.Editor
 {
     public class EdgeConnectorListener : IEdgeConnectorListener
     {
-        private readonly EditorView m_editorView;
+        private readonly NodeSketchEditorView m_editorView;
         private readonly SearchWindowProvider m_searchWindowProvider;
 
-        public EdgeConnectorListener(EditorView editorView, SearchWindowProvider searchWindowProvider)
+        public EdgeConnectorListener(NodeSketchEditorView editorView, SearchWindowProvider searchWindowProvider)
         {
             m_editorView = editorView;
             m_searchWindowProvider = searchWindowProvider;
