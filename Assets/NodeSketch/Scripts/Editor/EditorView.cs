@@ -36,7 +36,7 @@ namespace NodeSketch.Editor
             
 
             m_searchWindowProvider = ScriptableObject.CreateInstance<SearchWindowProvider>();
-            m_searchWindowProvider.Initialize(window, this, nodeProvider, m_graphView);
+            m_searchWindowProvider.Initialize(window, this, nodeProvider, m_fieldProvider, m_graphView);
             m_edgeConnectorListener = new EdgeConnectorListener(this, m_searchWindowProvider);
             m_searchWindowProvider.SetEdgeConnectorListener(m_edgeConnectorListener);
 

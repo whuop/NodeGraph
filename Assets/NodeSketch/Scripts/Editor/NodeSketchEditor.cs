@@ -55,14 +55,14 @@ namespace NodeSketch.Editor
                 Type type = nodeTemplate.RuntimeNodeType;
 
                 var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                foreach(var field in fields)
+
+                foreach (var field in fields)
                 {
                     bool isPrivate = field.IsPrivate;
 
 
                     if (IsOutput(field))
                     {
-
                     }
                     else if (IsInput(field))
                     {
@@ -80,6 +80,10 @@ namespace NodeSketch.Editor
                             {
 
                             }
+                        }
+                        else // NonPrivate
+                        {
+
                         }
                     }
                 }
@@ -131,7 +135,8 @@ namespace NodeSketch.Editor
         public void Initialize()
         {
             m_nodeProvider = new GraphNodeDefaultProvider();
-            m_editorView = new NodeSketchEditorView(this, m_nodeProvider);
+            m_fieldProvider = new GraphNodeDefaultFieldProvider();
+            m_editorView = new NodeSketchEditorView(this, m_nodeProvider, m_fieldProvider);
             rootVisualElement.Add(m_editorView);
         }
 

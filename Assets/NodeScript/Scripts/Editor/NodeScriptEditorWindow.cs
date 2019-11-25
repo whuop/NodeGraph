@@ -72,11 +72,13 @@ namespace NodeScript.Editor
 
         private NodeSketchEditorView m_editorView;
         private NodeProvider m_nodeProvider;
+        private FieldProvider m_fieldProvider;
 
         private void Initialize()
         {
             m_nodeProvider = new NodeScriptNodeProvider();
-            m_editorView = new NodeSketchEditorView(this, m_nodeProvider);
+            m_fieldProvider = new GraphNodeDefaultFieldProvider();
+            m_editorView = new NodeSketchEditorView(this, m_nodeProvider, m_fieldProvider);
             rootVisualElement.Add(m_editorView);
         }
 
