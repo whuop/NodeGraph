@@ -32,6 +32,7 @@ namespace Brian.BT.Behaviours
                 Tree.Start(Children[m_currentChild], OnChildComplete);
             }
         }
+        
     }
 }
 

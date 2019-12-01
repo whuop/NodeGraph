@@ -21,11 +21,6 @@ namespace Brian.BT.Behaviours
             set { m_status = value; }
         }
 
-        public bool IsTerminated
-        {
-            get { return Status != Status.Running; }
-        }
-
         public delegate void TaskObserverDelegate(Status status);
         public TaskObserverDelegate Observer
         {
@@ -45,7 +40,7 @@ namespace Brian.BT.Behaviours
             Status = status;
         }
 
-        public virtual Status OnUpdate() { return Status; }
+        public virtual Status OnUpdate() { return Status.Running; }
     }
 }
 

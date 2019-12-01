@@ -19,8 +19,9 @@ namespace Brian.BT
             Sequence root = new Sequence();
             m_root = root;
             root.AddChild(new TestTask());
+            root.AddChild(new TestTask());
 
-            m_behaviourTree.Start(m_root, OnTreeCompleted);
+            m_behaviourTree.Start(m_root);
         }
 
         private void OnTreeCompleted(Status status)

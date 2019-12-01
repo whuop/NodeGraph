@@ -26,13 +26,15 @@ namespace Brian.BT
 
         private static Status TickBehaviour(Task behaviour)
         {
-            if (behaviour.Status == Status.Invalid)
+            if (behaviour.Status != Status.Running)
             {
                 Debug.Log("Initializing: " + behaviour);
                 behaviour.OnInitialize();
             }
 
             Status status = behaviour.OnUpdate();
+            behaviour.Status = status;
+            Debug.Log("Status: " + status);
 
             if (status != Status.Running)
             {
@@ -57,7 +59,7 @@ namespace Brian.BT
             TickBehaviour(current);
                
             //  Process the observer if the task is terminated
-            if (current.IsTerminated && current.Observer != null)
+            if (current.Status != Status.Running && current.Observer != null)
             {
                 Debug.Log("Invoking observer: " + current.ToString());
                 current.Observer.Invoke(current.Status);
@@ -69,9 +71,10 @@ namespace Brian.BT
             return true;
         }
 
-        public void Start(Task task, Task.TaskObserverDelegate observer)
+        public void Start(Task task, Task.TaskObserverDelegate observer = null)
         {
-            task.Observer = observer;
+            if (observer != null)
+                task.Observer = observer;
             task.Tree = this;
 
             var temp = m_queuedTasks;
@@ -87,6 +90,7 @@ namespace Brian.BT
         {
             task.OnTerminate(status);
             task.Observer?.Invoke(status);
+            Debug.Log("Terminated: " + task.ToString());
         }
 
     }
