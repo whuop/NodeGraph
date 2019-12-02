@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Brian.BT.Schedulers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,10 +29,15 @@ namespace Brian.BT.Behaviours
             set;
         }
 
-        public BehaviourTree Tree
+        public IScheduler Scheduler
         {
             get;
             set;
+        }
+
+        public virtual bool HasUpdate
+        {
+            get { return false; }
         }
 
         public virtual void OnInitialize() { }

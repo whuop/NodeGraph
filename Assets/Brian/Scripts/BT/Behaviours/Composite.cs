@@ -11,6 +11,8 @@ namespace Brian.BT.Behaviours
 
         protected int m_currentChild = 0;
 
+        public override bool HasUpdate => false;
+
         public virtual void AddChild(Task child)
         {
             m_children.Add(child);

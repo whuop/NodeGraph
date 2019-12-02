@@ -60,6 +60,38 @@ namespace NodeSketch.Editor.DataProviders
         }
     }
 
+    public enum FieldType
+    {
+        Input,
+        Output,
+        Property
+    }
+
+    public class FieldTemplate
+    {
+        private string m_displayName;
+        public string DisplayName { get { return m_displayName; } }
+
+        private FieldType m_fieldType;
+        public FieldType FieldType { get { return m_fieldType; } }
+
+        private Type m_runtimeFieldType;
+        public Type RuntimeFieldType { get { return m_runtimeFieldType; } }
+
+        private string m_uxmlPath;
+        public string UXMLPath { get { return m_uxmlPath; } }
+        private string m_ussPath;
+        public string USSPath { get { return m_ussPath; } }
+
+        public FieldTemplate(string displayName, string uxmlPath, string ussPath, Type runtimeFieldType)
+        {
+            m_displayName = displayName;
+            m_uxmlPath = uxmlPath;
+            m_ussPath = ussPath;
+            m_runtimeFieldType = runtimeFieldType;
+        }
+    }
+
     public class NodeLibrary
     {
         private List<NodeTemplate> m_nodeTemplates;

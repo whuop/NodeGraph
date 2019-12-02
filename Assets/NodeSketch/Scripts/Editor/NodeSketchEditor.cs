@@ -60,7 +60,6 @@ namespace NodeSketch.Editor
                 {
                     bool isPrivate = field.IsPrivate;
 
-
                     if (IsOutput(field))
                     {
                     }

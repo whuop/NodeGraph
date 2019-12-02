@@ -9,7 +9,7 @@ namespace Brian.BT.Behaviours
         public override void OnInitialize()
         {
             base.OnInitialize();
-            Tree.Start(Children[m_currentChild], OnChildComplete);
+            Scheduler.ScheduleFirst(Children[m_currentChild], OnChildComplete);
         }
 
         private void OnChildComplete(Status status)
@@ -18,18 +18,18 @@ namespace Brian.BT.Behaviours
 
             if (child.Status == Status.Failed)
             {
-                Tree.Stop(this, Status.Failed);
+                Scheduler.Terminate(this, Status.Failed);
                 return;
             }
 
             m_currentChild++;
             if (m_currentChild >= Children.Count)
             {
-                Tree.Stop(this, Status.Success);
+                Scheduler.Terminate(this, Status.Success);
             }
             else
             {
-                Tree.Start(Children[m_currentChild], OnChildComplete);
+                Scheduler.ScheduleFirst(Children[m_currentChild], OnChildComplete);
             }
         }
         
