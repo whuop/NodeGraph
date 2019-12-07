@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57defa6f0485d3240b22770f786a243f, type: 3}
+  m_Name: briangraph
+  m_EditorClassIdentifier: 
+  m_nodes:
+  - m_guid: 6043635e-0613-49f6-b054-43cab7386e83
+    m_nodeRuntimeTypeString: Brian.BT.Behaviours.AlwaysFail, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_editorPosition: {x: 34, y: 109, z: 0}
+    m_nodeJsonData: '{}'
+    m_isExpanded: 1
+    m_serializedPorts:
+    - m_guid: ee149e58-3a09-4389-95ac-d1feb95f2ca5
+      m_displayName: Input
+      m_direction: 0
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 0
+    - m_guid: 1dd6531e-93e1-4555-8fbf-3cb254b655f3
+      m_displayName: m_decoratee
+      m_direction: 1
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 0
+  - m_guid: 6294e964-3f8d-4fa2-a3b5-f8c519fb2bab
+    m_nodeRuntimeTypeString: Brian.BT.Behaviours.AlwaysFail, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_editorPosition: {x: 111.354515, y: 299.6785, z: 0}
+    m_nodeJsonData: '{}'
+    m_isExpanded: 1
+    m_serializedPorts:
+    - m_guid: df006bb9-4af7-40e3-bf24-1a6e20126b19
+      m_displayName: Input
+      m_direction: 0
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 0
+    - m_guid: 409e23eb-0298-4204-87f6-251fe3c02753
+      m_displayName: m_decoratee
+      m_direction: 1
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 0
+  m_edges: []

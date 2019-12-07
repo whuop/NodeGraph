@@ -54,6 +54,7 @@ namespace NodeSketch.Editor
             {
                 Type type = nodeTemplate.RuntimeNodeType;
 
+                var template = new NodeFieldTemplate();
                 var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
                 foreach (var field in fields)
@@ -62,30 +63,19 @@ namespace NodeSketch.Editor
 
                     if (IsOutput(field))
                     {
+                        template.OutputPorts.Add(new Ports.PortDescription(field.Name, field.FieldType, PortDirection.Output, false, false));
                     }
                     else if (IsInput(field))
                     {
-
+                        template.OutputPorts.Add(new Ports.PortDescription(field.Name, field.FieldType, PortDirection.Input, false, false));
                     }
                     else
                     {
-                        if (isPrivate)
-                        {
-                            if (IsSerializable(field))
-                            {
-
-                            }
-                            else
-                            {
-
-                            }
-                        }
-                        else // NonPrivate
-                        {
-
-                        }
+                        template.Properties.Add(new PropertyDescription { FieldType = field });
                     }
                 }
+
+                templates.Add(type,template);
             }
         }
 
@@ -124,9 +114,6 @@ namespace NodeSketch.Editor
             Teardown();
         }
 
-
-        //private SearchWindowProvider m_searchWindowProvider;
-        //private EdgeConnectorListener m_edgeConnectorListener;
         private NodeSketchEditorView m_editorView;
         private NodeProvider m_nodeProvider;
         private FieldProvider m_fieldProvider;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NodeSketch.Editor.GraphElements;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -16,6 +17,24 @@ namespace NodeSketch.Editor
             gridBackground.pickingMode = PickingMode.Ignore;
             Add(gridBackground);
             gridBackground.SendToBack();
+
+            this.deleteSelection += OnDeleteSelection;
+        }
+
+        protected virtual void OnDeleteSelection(string operationName, AskUser askUser)
+        {
+            foreach(var selected in this.selection)
+            {
+                if (selected as GraphNode != null)
+                {
+                    Debug.Log("Trying to delete GraphNode");
+                }
+                else if (selected as Edge != null)
+                {
+                    Debug.Log("Trying to delete edge!");
+                }
+            }
+            Debug.Log("Delete Selection " + operationName + " " + askUser.ToString());
         }
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)

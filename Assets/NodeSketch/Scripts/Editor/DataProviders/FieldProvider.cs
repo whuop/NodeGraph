@@ -33,6 +33,11 @@ namespace NodeSketch.Editor.DataProviders
         }
     }
 
+    public class PropertyDescription
+    {
+        public FieldInfo FieldType;
+    }
+
     public class NodeFieldTemplate
     {
         private List<PortDescription> m_inputPorts = new List<PortDescription>();
@@ -40,6 +45,8 @@ namespace NodeSketch.Editor.DataProviders
         private List<PortDescription> m_outputPorts = new List<PortDescription>();
         public List<PortDescription> OutputPorts { get { return m_outputPorts; } }
 
+        private List<PropertyDescription> m_properties = new List<PropertyDescription>();
+        public List<PropertyDescription> Properties { get { return m_properties; } }
     }
 }
 

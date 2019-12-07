@@ -30,7 +30,7 @@ namespace NodeSketch.Editor.DataProviders
 
         public NodeTemplate GetTemplateFromRuntimeType(Type runtimeType)
         {
-            if (m_nodeTypeMapping.ContainsKey(runtimeType))
+            if (!m_nodeTypeMapping.ContainsKey(runtimeType))
             {
                 throw new ArgumentOutOfRangeException(runtimeType.FullName + " has no NodeTemplate associated with it!");
             }

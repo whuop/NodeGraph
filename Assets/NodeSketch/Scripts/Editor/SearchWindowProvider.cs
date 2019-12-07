@@ -191,77 +191,57 @@ namespace NodeSketch.Editor
 
         private GraphNode CreateNode(NodeTemplate template)
         {
-
             //  Create the node type
             GraphNode node = new GraphNode(template.Title.Last(), template.UXMLPath, template.USSPath, template.RuntimeNodeType, m_edgeConnectorListener, null);
             var runtimeNodeInstance = Activator.CreateInstance(template.RuntimeNodeType);
 
-            //  Get all the inputs of the node
-            var fields =  template.RuntimeNodeType.GetFields(BindingFlags.Instance | BindingFlags.Public);
+            var fieldTemplate = m_fieldProvider.GetNodeFieldTemplateByType(template.RuntimeNodeType);
 
-            //  Count inputs and outputs so we can remove the corresponding container if its empty.
-            int numInputs = 0;
-            int numOutputs = 0;
-            foreach (var field in fields)
+            foreach (var input in fieldTemplate.InputPorts)
             {
-                var input = field.GetCustomAttribute<InputAttribute>(false);
-                if (input != null)
-                {
-                    numInputs++;
-                    var inputType = field.FieldType;
-                    node.AddSlot(new PortDescription(field.Name, field.Name, inputType, PortDirection.Input, false));
-                    continue;
-                }
+                node.AddSlot(input.CreateCopy());
+            }
 
-                var output = field.GetCustomAttribute<OutputAttribute>(false);
-                if (output != null)
-                {
-                    numOutputs++;
-                    var outputType = field.FieldType;
-                    node.AddSlot(new PortDescription(field.Name, field.Name, outputType, PortDirection.Output, false));
-                    continue;
-                }
+            foreach (var output in fieldTemplate.OutputPorts)
+            {
+                node.AddSlot(output.CreateCopy());
+            }
 
-                node.AddProperty(new VisualProperty(field, runtimeNodeInstance));
+            foreach(var property in fieldTemplate.Properties)
+            {
+                node.AddProperty(new VisualProperty(property.FieldType, runtimeNodeInstance));
             }
 
             node.BindPortsAndProperties();
             return node;
         }
 
-        public GraphNode CreateNode(SerializedNode serializedNode)
+        public GraphNode CreateNode(SerializedNode serializedNode, bool skipSlotsAndProperties = false)
         {
             Type runtimeNodeType = serializedNode.NodeRuntimeType;
             NodeTemplate nodeTemplate = m_nodeProvider.GetTemplateFromRuntimeType(runtimeNodeType);
             GraphNode node = new GraphNode(nodeTemplate.Title.Last(), nodeTemplate.UXMLPath, nodeTemplate.USSPath, runtimeNodeType, m_edgeConnectorListener, serializedNode);
-            
-            //  Get all the inputs of the node
-            var fields = runtimeNodeType.GetFields(BindingFlags.Instance | BindingFlags.Public);
 
-            //  Count inputs and outputs so we can remove the corresponding container if its empty.
-            int numInputs = 0;
-            int numOutputs = 0;
-            foreach (var field in fields)
+            node.Position = serializedNode.EditorPosition;
+
+            if (skipSlotsAndProperties)
+                return node;
+
+            var fieldTemplate = m_fieldProvider.GetNodeFieldTemplateByType(runtimeNodeType);
+
+            foreach(var input in fieldTemplate.InputPorts)
             {
-                var input = field.GetCustomAttribute<InputAttribute>(false);
-                if (input != null)
-                {
-                    numInputs++;
-                    var inputType = field.FieldType;
-                    node.AddSlot(new PortDescription(field.Name, field.Name, inputType, PortDirection.Input, false));
-                    continue;
-                }
+                node.AddSlot(input.CreateCopy());
+            }
 
-                var output = field.GetCustomAttribute<OutputAttribute>(false);
-                if (output != null)
-                {
-                    numOutputs++;
-                    var outputType = field.FieldType;
-                    node.AddSlot(new PortDescription(field.Name, field.Name, outputType, PortDirection.Output, false));
-                    continue;
-                }
+            foreach(var output in fieldTemplate.OutputPorts)
+            {
+                node.AddSlot(output.CreateCopy());
+            }
 
-                node.AddProperty(new VisualProperty(field, node.RuntimeType));
+            foreach (var property in fieldTemplate.Properties)
+            {
+                node.AddProperty(new VisualProperty(property.FieldType, node.RuntimeInstance));
             }
 
             node.BindPortsAndProperties();

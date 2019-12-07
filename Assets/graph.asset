@@ -13,75 +13,40 @@ MonoBehaviour:
   m_Name: graph
   m_EditorClassIdentifier: 
   m_nodes:
-  - m_guid: f139e4da-5da4-4283-a357-22d325bbb96b
-    m_nodeRuntimeTypeString: TestNodeAgain, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    m_editorPosition: {x: -354, y: 221, z: 0}
-    m_nodeJsonData: "{\n    \"CoolFloat\": 0.0,\n    \"TestFloat\": 0.0,\n    \"TestCurve\":
-      {\n        \"serializedVersion\": \"2\",\n        \"m_Curve\": [],\n        \"m_PreInfinity\":
-      2,\n        \"m_PostInfinity\": 2,\n        \"m_RotationOrder\": 4\n    },\n
-      \   \"TestString\": \"\",\n    \"TestInt\": 0,\n    \"TestBool\": false\n}"
-    m_isExpanded: 1
-  - m_guid: 873423dc-13d0-4ab8-b038-6a5178a104a7
-    m_nodeRuntimeTypeString: NodeSketch.Nodes.BoolValueNode, Assembly-CSharp, Version=0.0.0.0,
+  - m_guid: f48b1fd3-3d19-43e9-b54d-c9c527679215
+    m_nodeRuntimeTypeString: Brian.BT.Behaviours.Sequence, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: -103, y: 288, z: 0}
-    m_nodeJsonData: 
+    m_editorPosition: {x: -627, y: -355, z: 0}
+    m_nodeJsonData: '{}'
     m_isExpanded: 1
-  - m_guid: a7a2528c-f38b-4987-bb90-b852ba14a4f7
-    m_nodeRuntimeTypeString: TryingANamespace.TestNode, Assembly-CSharp, Version=0.0.0.0,
+  - m_guid: 5c05433e-f06e-4cdc-bcbe-31cfe6d81ef8
+    m_nodeRuntimeTypeString: Brian.BT.Behaviours.Sequence, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: 92, y: 279, z: 0}
-    m_nodeJsonData: "{\n    \"TestInt\": 0,\n    \"TestBool\": false,\n    \"TestFloat\":
-      0.0\n}"
+    m_editorPosition: {x: -38, y: -508, z: 0}
+    m_nodeJsonData: '{}'
     m_isExpanded: 1
-  - m_guid: e4f51941-5879-406e-b3ce-2f9a2fadacca
-    m_nodeRuntimeTypeString: TestNodeAgain, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    m_editorPosition: {x: 126, y: 464, z: 0}
-    m_nodeJsonData: "{\n    \"CoolFloat\": 0.0,\n    \"TestFloat\": 0.0,\n    \"TestCurve\":
-      {\n        \"serializedVersion\": \"2\",\n        \"m_Curve\": [],\n        \"m_PreInfinity\":
-      2,\n        \"m_PostInfinity\": 2,\n        \"m_RotationOrder\": 4\n    },\n
-      \   \"TestString\": \"\",\n    \"TestInt\": 0,\n    \"TestBool\": false\n}"
-    m_isExpanded: 1
-  - m_guid: 10f19064-60d8-4620-9813-79728bad2a59
-    m_nodeRuntimeTypeString: TestNodeAgain, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    m_editorPosition: {x: -756, y: 225, z: 0}
-    m_nodeJsonData: "{\n    \"CoolFloat\": 0.0,\n    \"TestFloat\": 0.0,\n    \"TestCurve\":
-      {\n        \"serializedVersion\": \"2\",\n        \"m_Curve\": [],\n        \"m_PreInfinity\":
-      2,\n        \"m_PostInfinity\": 2,\n        \"m_RotationOrder\": 4\n    },\n
-      \   \"TestString\": \"\",\n    \"TestInt\": 0,\n    \"TestBool\": false\n}"
-    m_isExpanded: 1
-  - m_guid: 4f3e18d2-051a-49f3-805a-9d5b1b8bfd25
-    m_nodeRuntimeTypeString: TestNodeAgain, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    m_editorPosition: {x: 93, y: 13, z: 0}
-    m_nodeJsonData: "{\n    \"CoolFloat\": 0.0,\n    \"TestFloat\": 0.0,\n    \"TestCurve\":
-      {\n        \"serializedVersion\": \"2\",\n        \"m_Curve\": [],\n        \"m_PreInfinity\":
-      2,\n        \"m_PostInfinity\": 2,\n        \"m_RotationOrder\": 4\n    },\n
-      \   \"TestString\": \"\",\n    \"TestInt\": 0,\n    \"TestBool\": false\n}"
-    m_isExpanded: 1
-  - m_guid: 29cdf6cc-7715-4dad-9727-749716a7a17b
-    m_nodeRuntimeTypeString: NodeSketch.Nodes.BoolValueNode, Assembly-CSharp, Version=0.0.0.0,
+  - m_guid: 9a6fa0c9-f73a-4bfb-ad55-54e195596189
+    m_nodeRuntimeTypeString: Brian.BT.Behaviours.Sequence, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: -405, y: 544, z: 0}
-    m_nodeJsonData: 
+    m_editorPosition: {x: -46, y: -388, z: 0}
+    m_nodeJsonData: '{}'
     m_isExpanded: 1
-  - m_guid: 6f66ac13-bcc1-4559-8c4a-4667f3b45e7a
-    m_nodeRuntimeTypeString: NodeSketch.Nodes.BoolValueNode, Assembly-CSharp, Version=0.0.0.0,
+  - m_guid: 614e1564-654e-4e1d-b399-15fe73ece6c8
+    m_nodeRuntimeTypeString: Brian.BT.Behaviours.TestTask, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: -452, y: 515, z: 0}
-    m_nodeJsonData: "{\n    \"Value\": false,\n    \"InputValue\": false\n}"
-    m_isExpanded: 1
-  - m_guid: 3aadf3d2-9546-40c9-b11f-216a21878673
-    m_nodeRuntimeTypeString: NodeSketch.Nodes.PrettyCoolStructValueNode, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: -458, y: 604, z: 0}
-    m_nodeJsonData: "{\n    \"Poopsicle\": 0.0\n}"
+    m_editorPosition: {x: 427, y: -400, z: 0}
+    m_nodeJsonData: '{}'
     m_isExpanded: 1
   m_edges:
-  - m_sourceNodeGUID: 3aadf3d2-9546-40c9-b11f-216a21878673
-    m_sourcePortMemberName: Value
-    m_targetNodeGUID: e4f51941-5879-406e-b3ce-2f9a2fadacca
-    m_targetPortMemberName: TestingAgain
+  - m_sourceNodeGUID: f48b1fd3-3d19-43e9-b54d-c9c527679215
+    m_sourcePortMemberName: 806ad262-ed28-4e69-90db-0565e49d3ff9
+    m_targetNodeGUID: 5c05433e-f06e-4cdc-bcbe-31cfe6d81ef8
+    m_targetPortMemberName: 035a3a8e-3b2d-4cb3-96d4-04874416f67b
+  - m_sourceNodeGUID: f48b1fd3-3d19-43e9-b54d-c9c527679215
+    m_sourcePortMemberName: 2c7ed893-0534-459b-ad77-e232061b425f
+    m_targetNodeGUID: 9a6fa0c9-f73a-4bfb-ad55-54e195596189
+    m_targetPortMemberName: dabd483b-00d9-400c-b552-301b4fb1ec1e
+  - m_sourceNodeGUID: 9a6fa0c9-f73a-4bfb-ad55-54e195596189
+    m_sourcePortMemberName: f70ed806-bf3a-4a0a-9f62-22bddd1686ec
+    m_targetNodeGUID: 614e1564-654e-4e1d-b399-15fe73ece6c8
+    m_targetPortMemberName: 154d115f-a7c9-4e81-aa56-67db2836eec5

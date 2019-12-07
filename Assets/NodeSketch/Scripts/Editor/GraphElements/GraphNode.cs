@@ -86,7 +86,8 @@ namespace NodeSketch.Editor.GraphElements
                     Guid = System.Guid.NewGuid().ToString(),
                     IsExpanded = true,
                     EditorPosition = this.GetPosition().position,
-                    NodeRuntimeTypeString = m_runtimeType.AssemblyQualifiedName
+                    NodeRuntimeTypeString = m_runtimeType.AssemblyQualifiedName,
+                    SerializedPorts = new List<SerializedPort>()
                 };
             }
             else
@@ -105,6 +106,8 @@ namespace NodeSketch.Editor.GraphElements
             OnBindGUI();
 
             title = titleLabel;
+
+            Debug.Log("Created node with guid: " + m_serializedNode.Guid.ToString());
         }
 
         public void SynchronizeToSerializedNode()
@@ -222,6 +225,25 @@ namespace NodeSketch.Editor.GraphElements
             return backingField;
         }
 
+        public void BindPort(PortDescription port)
+        {
+            if (port.Owner != this)
+                return;
+
+            var portVisuals = VisualPort.Create(port, EdgeConnectorListener);
+            port.SetVisualPort(portVisuals);
+
+            switch (port.PortDirection)
+            {
+                case PortDirection.Input:
+                    inputContainer.Add(portVisuals);
+                    break;
+                case PortDirection.Output:
+                    outputContainer.Add(portVisuals);
+                    break;
+            }
+        }
+
         public void BindPortsAndProperties()
         {
             foreach (var slot in m_portDescriptions)
@@ -298,11 +320,12 @@ namespace NodeSketch.Editor.GraphElements
             }
         }
 
-        public virtual void AddSlot(PortDescription description)
+        public virtual void AddSlot(PortDescription description, bool addToSerializedNode = true)
         {
             m_portDescriptions.Add(description);
+            if (addToSerializedNode)
+                m_serializedNode.SerializedPorts.Add(description.ToSerializedPort());
             description.Owner = this;
-
         }
 
         public virtual void AddProperty(VisualProperty property)

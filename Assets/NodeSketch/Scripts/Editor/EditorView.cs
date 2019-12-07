@@ -113,10 +113,20 @@ namespace NodeSketch.Editor
 
             m_graph = ScriptableObject.CreateInstance<NodeGraph>();
 
+            
             for(int i = 0; i < graph.Nodes.Count; i++)
             {
-                var node = m_searchWindowProvider.CreateNode(graph.Nodes[i]);
+                var node = m_searchWindowProvider.CreateNode(graph.Nodes[i], true);
                 AddNode(node, node.name);
+
+                for (int j = 0; j < graph.Nodes[i].SerializedPorts.Count; j++)
+                {
+                    var sPort = graph.Nodes[i].SerializedPorts[j];
+                    var port = new PortDescription(sPort.Guid, sPort.DisplayName, sPort.PortType, sPort.Direction, sPort.AllowMultipleConnections, sPort.AddIdenticalPortOnConnect);
+                    node.AddSlot(port, false);
+                }
+
+                node.BindPortsAndProperties();
             }
 
             var nodes = m_graphView.nodes.ToList();
@@ -127,11 +137,9 @@ namespace NodeSketch.Editor
                 VisualPort from = null;
                 VisualPort to = null;
 
-
                 foreach(var node in nodes)
                 {
                     GraphNode vNode = (GraphNode)node;
-
                     Debug.Log("Node GUID: " + vNode.NodeGuid + " Edge GUIDS: " + serializedEdge.SourceNodeGUID + " ----> " + serializedEdge.TargetNodeGUID);
 
                     if (vNode.NodeGuid == serializedEdge.SourceNodeGUID)
@@ -158,7 +166,7 @@ namespace NodeSketch.Editor
                 {
                     Debug.Log("Creating Edge!");
                      var edge = from.ConnectTo(to);
-                    AddEdge(edge);
+                    AddEdgeLoad(edge);
                 }
             }
         }
@@ -250,11 +258,44 @@ namespace NodeSketch.Editor
             node.MarkDirtyRepaint();
         }
 
+        public void AddEdgeLoad(Edge edgeVisual)
+        {
+            PortDescription leftPortDescription;
+            PortDescription rightPortDescription;
+            GetSlots(edgeVisual, out leftPortDescription, out rightPortDescription);
+
+            edgeVisual.output.Connect(edgeVisual);
+            edgeVisual.input.Connect(edgeVisual);
+            m_graphView.AddElement(edgeVisual);
+            m_graph.AddEdge(new SerializedEdge()
+            {
+                SourceNodeGUID = leftPortDescription.Owner.NodeGuid,
+                SourcePortMemberName = leftPortDescription.MemberName,
+                TargetNodeGUID = rightPortDescription.Owner.NodeGuid,
+                TargetPortMemberName = rightPortDescription.MemberName
+            });
+        }
+
         public void AddEdge(Edge edgeVisual)
         {
             PortDescription leftPortDescription;
             PortDescription rightPortDescription;
             GetSlots(edgeVisual, out leftPortDescription, out rightPortDescription);
+
+            if (leftPortDescription.AddIdenticalPortOnConnect)
+            {
+                PortDescription newPort = leftPortDescription.CreateCopy();
+                leftPortDescription.Owner.AddSlot(newPort);
+                leftPortDescription.Owner.BindPort(newPort);
+            }
+
+            if (rightPortDescription.AddIdenticalPortOnConnect)
+            {
+                PortDescription newPort = rightPortDescription.CreateCopy();
+                rightPortDescription.Owner.AddSlot(newPort);
+                rightPortDescription.Owner.BindPort(newPort);
+            }
+
 
             edgeVisual.output.Connect(edgeVisual);
             edgeVisual.input.Connect(edgeVisual);

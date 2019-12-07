@@ -6,6 +6,36 @@ using UnityEngine;
 namespace NodeSketch
 {
     [System.Serializable]
+    public enum PortDirection
+    {
+        Input,
+        Output
+    }
+
+    [System.Serializable]
+    public class SerializedPort
+    {
+        [SerializeField]
+        private string m_guid;
+        public string Guid { get { return m_guid; } set { m_guid = value; } }
+        [SerializeField]
+        private string m_displayName;
+        public string DisplayName { get { return m_displayName; } set { m_displayName = value; } }
+        [SerializeField]
+        private PortDirection m_direction;
+        public PortDirection Direction {  get { return m_direction; } set { m_direction = value; } }
+        [SerializeField]
+        private string m_portType;
+        public string PortType { get { return m_portType; } set { m_portType = value; } }
+        [SerializeField]
+        private bool m_allowMultipleConnections;
+        public bool AllowMultipleConnections { get { return m_allowMultipleConnections; } set { m_allowMultipleConnections = value; } }
+        [SerializeField]
+        private bool m_addIdenticalPortOnConnect;
+        public bool AddIdenticalPortOnConnect { get { return m_addIdenticalPortOnConnect; } set { m_addIdenticalPortOnConnect = value; } }
+    }
+
+    [System.Serializable]
     public class SerializedNode
     {
         [SerializeField]
@@ -29,6 +59,10 @@ namespace NodeSketch
         [SerializeField]
         private bool m_isExpanded;
         public bool IsExpanded { get { return m_isExpanded; } set { m_isExpanded = value; } }
+
+        [SerializeField]
+        private List<SerializedPort> m_serializedPorts;
+        public List<SerializedPort> SerializedPorts { get { return m_serializedPorts; } set { m_serializedPorts = value; } }
     }
 }
 

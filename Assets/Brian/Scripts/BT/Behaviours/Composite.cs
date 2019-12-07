@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NodeSketch.Attributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,8 @@ namespace Brian.BT.Behaviours
 {
     public abstract class Composite : Task
     {
-        private List<Task> m_children = new List<Task>();
+        [Output(autoAddPortOnConnect: true)]
+        protected List<Task> m_children = new List<Task>();
         public List<Task> Children { get { return m_children; } }
 
         protected int m_currentChild = 0;
