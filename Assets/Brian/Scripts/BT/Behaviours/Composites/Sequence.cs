@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using NodeSketch.Attributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Brian.BT.Behaviours
 {
-    public class Selector : Composite
+    [Title("Brian/Composites/Sequence")]
+    public class Sequence : Composite
     {
         public override void OnInitialize()
         {
@@ -16,22 +18,24 @@ namespace Brian.BT.Behaviours
         {
             Task child = Children[m_currentChild];
 
-            if (child.Status == Status.Success)
+            if (child.Status == Status.Failed)
             {
-                Scheduler.Terminate(this, Status.Success);
+                Scheduler.Terminate(this, Status.Failed);
                 return;
             }
 
             m_currentChild++;
             if (m_currentChild >= Children.Count)
             {
-                Scheduler.Terminate(this, Status.Failed);
+                Scheduler.Terminate(this, Status.Success);
             }
             else
             {
                 Scheduler.ScheduleFirst(Children[m_currentChild], OnChildComplete);
             }
         }
+        
     }
 }
+
 

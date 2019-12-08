@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using NodeSketch.Attributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Brian.BT.Behaviours
 {
+    [Title("Brian/Tasks/Test Task")]
     public class TestTask : Task
     {
         public override void OnInitialize()
