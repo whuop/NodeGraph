@@ -9,6 +9,12 @@ namespace NodeSketch.Editor
 {
     public class NodeSketchGraphView : GraphView
     {
+        public delegate void DeleteGraphNodeDelegate(GraphNode node);
+        public delegate void DeleteEdgeDelegate(Edge edge);
+
+        public DeleteGraphNodeDelegate OnDeleteGraphNode { get; set; }
+        public DeleteEdgeDelegate OnDeleteEdge { get; set; }
+
         public NodeSketchGraphView()
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Styles/GraphView"));
@@ -21,21 +27,22 @@ namespace NodeSketch.Editor
             this.deleteSelection += OnDeleteSelection;
         }
 
-        protected virtual void OnDeleteSelection(string operationName, AskUser askUser)
+        private void OnDeleteSelection(string operationName, AskUser askUser)
         {
-            foreach(var selected in this.selection)
+            for(int i = selection.Count - 1; i >= 0; i--)
             {
-                if (selected as GraphNode != null)
-                {
-                    Debug.Log("Trying to delete GraphNode");
-                }
-                else if (selected as Edge != null)
-                {
-                    Debug.Log("Trying to delete edge!");
-                }
+                var selected = selection[i];
+
+                GraphNode node = selected as GraphNode;
+                Edge edge = selected as Edge;
+
+                if (node != null)
+                    OnDeleteGraphNode?.Invoke(node);
+                if (edge != null)
+                    OnDeleteEdge?.Invoke(edge);
             }
-            Debug.Log("Delete Selection " + operationName + " " + askUser.ToString());
         }
+
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {

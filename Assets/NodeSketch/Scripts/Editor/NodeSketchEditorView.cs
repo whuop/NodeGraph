@@ -45,6 +45,9 @@ namespace NodeSketch.Editor
                 m_searchWindowProvider.ConnectedVisualPort = null;
                 SearchWindow.Open(new SearchWindowContext(c.screenMousePosition), m_searchWindowProvider);
             };
+
+            m_graphView.OnDeleteGraphNode += OnDeleteGraphNode;
+            m_graphView.OnDeleteEdge += OnDeleteEdge;
         }
 
         private VisualElement CreateToolbar()
@@ -174,6 +177,17 @@ namespace NodeSketch.Editor
         public void ShowInProjectRequested()
         {
 
+        }
+
+        private void OnDeleteGraphNode(GraphNode node)
+        {
+            m_graphView.RemoveElement(node);
+            m_graph.RemoveNode(node.SerializedNode);
+        }
+
+        private void OnDeleteEdge(Edge edge)
+        {
+            m_graphView.RemoveElement(edge);
         }
 
         private VisualElement CreateContentView()
