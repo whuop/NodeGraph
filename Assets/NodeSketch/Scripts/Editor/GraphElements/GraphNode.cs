@@ -369,5 +369,24 @@ namespace NodeSketch.Editor.GraphElements
             }
             return default(T);
         }
+        
+        public virtual void RemoveSlot(PortDescription slot)
+        {
+            for(int i = 0; i < m_portDescriptions.Count; i++)
+            {
+                PortDescription port = m_portDescriptions[i];
+
+                if (slot == port)
+                {
+                    if (slot.IsInputSlot)
+                        inputContainer.Remove(slot.VisualPort);
+                    if (slot.IsOutputSlot)
+                        outputContainer.Remove(slot.VisualPort);
+                    m_portDescriptions.Remove(port);
+                    break;
+                }
+            }
+            RefreshPorts();
+        }
     }
 }

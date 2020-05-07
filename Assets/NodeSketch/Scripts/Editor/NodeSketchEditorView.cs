@@ -181,12 +181,58 @@ namespace NodeSketch.Editor
 
         private void OnDeleteGraphNode(GraphNode node)
         {
+            //  Delete the all edges connected to this node
+            var edges = m_graphView.edges.ToList();
+            for(int i = 0; i < edges.Count; i++)
+            {
+                PortDescription input = null;
+                PortDescription output = null;
+                GetSlots(edges[i], out input, out output);
+
+                bool removeEdge = false;
+                if (input.Owner == node)
+                {
+                    removeEdge = true;
+                }
+
+                if (output.Owner == node)
+                {
+                    removeEdge = true;
+                }
+
+                if (removeEdge)
+                {
+                    OnDeleteEdge(edges[i]);
+                }
+            }
+
+            //  Delete the node
             m_graphView.RemoveElement(node);
             m_graph.RemoveNode(node.SerializedNode);
         }
 
         private void OnDeleteEdge(Edge edge)
         {
+            //  Remove input/output if they're marked as auto add identical on connect.
+            //  This also means that we need to auto remove on disconnect
+            PortDescription input = null;
+            PortDescription output = null;
+
+            GetSlots(edge, out input, out output);
+
+            if (input.AddIdenticalPortOnConnect)
+            {
+                input.Owner.RemoveSlot(input);
+            }
+
+            if (output.AddIdenticalPortOnConnect)
+            {
+                input.Owner.RemoveSlot(input);
+            }
+
+            //  Remove the edge
+            edge.input.Disconnect(edge);
+            edge.output.Disconnect(edge);
             m_graphView.RemoveElement(edge);
         }
 
@@ -199,9 +245,6 @@ namespace NodeSketch.Editor
                     name = "GraphView",
                     viewDataKey = "LogicGraphView"
                 };
-
-                
-                
 
                 m_graphView.SetupZoom(0.05f, ContentZoomer.DefaultMaxScale);
                 m_graphView.AddManipulator(new ContentDragger());
@@ -232,6 +275,7 @@ namespace NodeSketch.Editor
                     //nodeEditor.SerializedNode.JSON = JsonUtility.ToJson(nodeEditor);
                 }
             }
+
 
             if (graphViewChange.elementsToRemove != null)
             {
