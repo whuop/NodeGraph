@@ -46,6 +46,8 @@ namespace NodeSketch.Editor
                 SearchWindow.Open(new SearchWindowContext(c.screenMousePosition), m_searchWindowProvider);
             };
 
+            
+
             m_graphView.OnDeleteGraphNode += OnDeleteGraphNode;
             m_graphView.OnDeleteEdge += OnDeleteEdge;
         }

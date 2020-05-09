@@ -69,6 +69,8 @@ namespace NodeSketch.Editor.GraphElements
 
         public VisualElement bottomContainer { get; private set; }
 
+        public VisualElement SelectionBorder { get; private set; }
+
         public GraphNode(string titleLabel, string uxmlPath, string ussPath, Type runtimeType, EdgeConnectorListener edgeConnectorListener, SerializedNode serializedNode)
         {
             styleSheets.Remove(EditorGUIUtility.Load("StyleSheets/GraphView/Node.uss") as StyleSheet);
@@ -182,9 +184,15 @@ namespace NodeSketch.Editor.GraphElements
                 var selection = main.Q(name: "selection-border");
                 if (selection != null)
                 {
+                    Debug.LogError("Found selection border");
                     selection.style.overflow = Overflow.Visible; //fixes issues with selection border being clipped when zooming out
                     // Send to back so it isnt picked before the other elements beside it
                     selection.SendToBack();
+                    this.SelectionBorder = selection;
+                }
+                else
+                {
+                    Debug.LogError("Could not find selection border");
                 }
             }
             else
@@ -204,6 +212,7 @@ namespace NodeSketch.Editor.GraphElements
 
             RefreshExpandedState();
             RefreshPorts();
+            
         }
 
         private void OnClickCollapse()

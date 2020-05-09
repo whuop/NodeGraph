@@ -171,20 +171,20 @@ namespace NodeSketch.Editor
 
             m_editorView.AddNode(nodeEditor, nodeEntry.Title.Last());
 
-            //            if (connectedPort != null)
-            //            {
-            //                var connectedSlot = connectedPort.slot;
-            //                var connectedSlotReference = connectedSlot.owner.GetSlotReference(connectedSlot.id);
-            //                var compatibleSlotReference = node.GetSlotReference(nodeEntry.compatibleSlotId);
-            //
-            //                var fromReference = connectedSlot.isOutputSlot ? connectedSlotReference : compatibleSlotReference;
-            //                var toReference = connectedSlot.isOutputSlot ? compatibleSlotReference : connectedSlotReference;
-            //                m_Graph.Connect(fromReference, toReference);
-            //
-            //                nodeNeedsRepositioning = true;
-            //                targetSlotReference = compatibleSlotReference;
-            //                targetPosition = graphMousePosition;
-            //            }
+            /*if (ConnectedVisualPort != null)
+            {
+                var connectedSlot = ConnectedVisualPort.PortDescription;
+                var connectedSlotReference = connectedSlot.owner.GetSlotReference(connectedSlot.id);
+                var compatibleSlotReference = node.GetSlotReference(nodeEntry.compatibleSlotId);
+
+                var fromReference = connectedSlot.isOutputSlot ? connectedSlotReference : compatibleSlotReference;
+                var toReference = connectedSlot.isOutputSlot ? compatibleSlotReference : connectedSlotReference;
+                m_Graph.Connect(fromReference, toReference);
+
+                nodeNeedsRepositioning = true;
+                targetSlotReference = compatibleSlotReference;
+                targetPosition = graphMousePosition;
+            }*/
 
             return true;
         }
