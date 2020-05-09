@@ -102,7 +102,7 @@ namespace NodeSketch.Editor
             // First item in the tree is the title of the window.
             var tree = new List<SearchTreeEntry>
             {
-                new SearchTreeGroupEntry(new GUIContent("Create Node"), 0),
+                new SearchTreeGroupEntry(new GUIContent("Add Node"), 0),
             };
 
             foreach (var nodeEntry in nodeLibrary.nodeTemplates)
