@@ -171,20 +171,40 @@ namespace NodeSketch.Editor
 
             m_editorView.AddNode(nodeEditor, nodeEntry.Title.Last());
 
-            /*if (ConnectedVisualPort != null)
+            if (ConnectedVisualPort != null)
             {
-                var connectedSlot = ConnectedVisualPort.PortDescription;
-                var connectedSlotReference = connectedSlot.owner.GetSlotReference(connectedSlot.id);
-                var compatibleSlotReference = node.GetSlotReference(nodeEntry.compatibleSlotId);
+                var connectedSlotReference = ConnectedVisualPort.PortDescription.Owner.FindSlot<PortDescription>(ConnectedVisualPort.PortDescription.MemberName);
 
-                var fromReference = connectedSlot.isOutputSlot ? connectedSlotReference : compatibleSlotReference;
-                var toReference = connectedSlot.isOutputSlot ? compatibleSlotReference : connectedSlotReference;
-                m_Graph.Connect(fromReference, toReference);
+                List<PortDescription> slots = new List<PortDescription>();
+                if (connectedSlotReference.IsInputSlot)
+                {
+                    nodeEditor.GetOutputSlots(slots);
+                    
+                }
+                else if (connectedSlotReference.IsOutputSlot)
+                {
+                    nodeEditor.GetInputSlots(slots);
+                }
 
-                nodeNeedsRepositioning = true;
-                targetSlotReference = compatibleSlotReference;
-                targetPosition = graphMousePosition;
-            }*/
+                foreach (var slot in slots)
+                {
+                    if (!slot.IsCompatibleWith(connectedSlotReference))
+                        continue;
+
+                    if (slot.VisualPort.connected)
+                        continue;
+                    
+                    var edge = connectedSlotReference.VisualPort.ConnectTo(slot.VisualPort);
+
+                    m_editorView.AddEdge(edge);
+
+                    connectedSlotReference = null;
+
+                    NodeNeedsRepositioning = true;
+                    TargetPosition = graphMousePosition;
+                    break;
+                }
+            }
 
             return true;
         }

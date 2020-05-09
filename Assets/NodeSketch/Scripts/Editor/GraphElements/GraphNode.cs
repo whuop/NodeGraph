@@ -184,15 +184,10 @@ namespace NodeSketch.Editor.GraphElements
                 var selection = main.Q(name: "selection-border");
                 if (selection != null)
                 {
-                    Debug.LogError("Found selection border");
                     selection.style.overflow = Overflow.Visible; //fixes issues with selection border being clipped when zooming out
                     // Send to back so it isnt picked before the other elements beside it
                     selection.SendToBack();
                     this.SelectionBorder = selection;
-                }
-                else
-                {
-                    Debug.LogError("Could not find selection border");
                 }
             }
             else
@@ -396,6 +391,81 @@ namespace NodeSketch.Editor.GraphElements
                 }
             }
             RefreshPorts();
+        }
+
+        public int GetNumUnconnectedPorts()
+        {
+            int num = 0;
+            foreach (var slot in m_portDescriptions)
+            {
+                if (!slot.VisualPort.connected)
+                    num++;
+            }
+            return num;
+        }
+
+        public int GetNumUnconnectInput()
+        {
+            int num = 0;
+            List<PortDescription> ports = new List<PortDescription>();
+            GetInputSlots(ports);
+            foreach (var slot in ports)
+            {
+                if (!slot.VisualPort.connected)
+                    num++;
+            }
+            return num;
+        }
+
+        public int GetNumUnconnectOutput()
+        {
+            int num = 0;
+            List<PortDescription> ports = new List<PortDescription>();
+            GetOutputSlots(ports);
+            foreach (var slot in ports)
+            {
+                if (!slot.VisualPort.connected)
+                    num++;
+            }
+            return num;
+        }
+
+        public void TrimInputs()
+        {
+            int unconnected = GetNumUnconnectInput();
+            int numToRemove = unconnected - 1;
+            
+            if (numToRemove <= 0)
+                return;
+            List<PortDescription> ports = new List<PortDescription>();
+            GetInputSlots(ports);
+            for(int i = ports.Count - 1; i >= 0; i--)
+            {
+                if (!ports[i].VisualPort.connected && numToRemove > 0)
+                {
+                    RemoveSlot(ports[i]);
+                    numToRemove--;
+                }
+            }
+        }
+
+        public void TrimOutputs()
+        {
+            int unconnected = GetNumUnconnectOutput();
+            int numToRemove = unconnected - 1;
+
+            if (numToRemove <= 0)
+                return;
+            List<PortDescription> ports = new List<PortDescription>();
+            GetOutputSlots(ports);
+            for (int i = ports.Count - 1; i >= 0; i--)
+            {
+                if (!ports[i].VisualPort.connected && numToRemove > 0)
+                {
+                    RemoveSlot(ports[i]);
+                    numToRemove--;
+                }
+            }
         }
     }
 }

@@ -217,25 +217,27 @@ namespace NodeSketch.Editor
         {
             //  Remove input/output if they're marked as auto add identical on connect.
             //  This also means that we need to auto remove on disconnect
-            PortDescription input = null;
-            PortDescription output = null;
+            PortDescription leftPort = null;
+            PortDescription rightPort = null;
 
-            GetSlots(edge, out input, out output);
-
-            if (input.AddIdenticalPortOnConnect)
-            {
-                input.Owner.RemoveSlot(input);
-            }
-
-            if (output.AddIdenticalPortOnConnect)
-            {
-                input.Owner.RemoveSlot(input);
-            }
+            GetSlots(edge, out leftPort, out rightPort);
 
             //  Remove the edge
             edge.input.Disconnect(edge);
             edge.output.Disconnect(edge);
             m_graphView.RemoveElement(edge);
+
+            if (leftPort.AddIdenticalPortOnConnect)
+            {
+                leftPort.Owner.TrimInputs();
+                leftPort.Owner.TrimOutputs();
+            }
+
+            if (rightPort.AddIdenticalPortOnConnect)
+            {
+                rightPort.Owner.TrimInputs();
+                rightPort.Owner.TrimOutputs();
+            }
         }
 
         private VisualElement CreateContentView()
@@ -342,20 +344,37 @@ namespace NodeSketch.Editor
             PortDescription rightPortDescription;
             GetSlots(edgeVisual, out leftPortDescription, out rightPortDescription);
 
-            if (leftPortDescription.AddIdenticalPortOnConnect)
+            if (!leftPortDescription.AllowMultipleConnections)
             {
-                PortDescription newPort = leftPortDescription.CreateCopy();
-                leftPortDescription.Owner.AddSlot(newPort);
-                leftPortDescription.Owner.BindPort(newPort);
+                var edges = m_graphView.edges.ToList();
+                foreach(var _edge in edges)
+                {
+                    if (_edge.input == leftPortDescription.VisualPort || _edge.output == leftPortDescription.VisualPort)
+                    {
+                        _edge.input.Disconnect(_edge);
+                        _edge.output.Disconnect(_edge);
+
+                        m_graphView.RemoveElement(_edge);
+                    }
+                }
+                leftPortDescription.VisualPort.DisconnectAll();
             }
 
-            if (rightPortDescription.AddIdenticalPortOnConnect)
+            if (!rightPortDescription.AllowMultipleConnections)
             {
-                PortDescription newPort = rightPortDescription.CreateCopy();
-                rightPortDescription.Owner.AddSlot(newPort);
-                rightPortDescription.Owner.BindPort(newPort);
-            }
+                var edges = m_graphView.edges.ToList();
+                foreach (var _edge in edges)
+                {
+                    if (_edge.input == rightPortDescription.VisualPort || _edge.output == rightPortDescription.VisualPort)
+                    {
+                        _edge.input.Disconnect(_edge);
+                        _edge.output.Disconnect(_edge);
 
+                        m_graphView.RemoveElement(_edge);
+                    }
+                }
+                rightPortDescription.VisualPort.DisconnectAll();
+            }
 
             edgeVisual.output.Connect(edgeVisual);
             edgeVisual.input.Connect(edgeVisual);
@@ -367,6 +386,28 @@ namespace NodeSketch.Editor
                 TargetNodeGUID = rightPortDescription.Owner.NodeGuid,
                 TargetPortMemberName = rightPortDescription.MemberName
             });
+
+            if (leftPortDescription.AddIdenticalPortOnConnect)
+            {
+                PortDescription newPort = leftPortDescription.CreateCopy();
+
+                if (leftPortDescription.Owner.GetNumUnconnectOutput() == 0)
+                {
+                    leftPortDescription.Owner.AddSlot(newPort);
+                    leftPortDescription.Owner.BindPort(newPort);
+                }
+            }
+
+            if (rightPortDescription.AddIdenticalPortOnConnect)
+            {
+                PortDescription newPort = rightPortDescription.CreateCopy();
+
+                if (rightPortDescription.Owner.GetNumUnconnectInput() == 0)
+                {
+                    rightPortDescription.Owner.AddSlot(newPort);
+                    rightPortDescription.Owner.BindPort(newPort);
+                }
+            }
         }
 
         private void GetSlots(Edge edge, out PortDescription leftPortDescription, out PortDescription rightPortDescription)

@@ -67,10 +67,7 @@ namespace Brian.Editor
             foreach (var nodeTemplate in library.nodeTemplates)
             {
                 Type type = nodeTemplate.RuntimeNodeType;
-                Debug.Log("Template Type: " + type.Name);
-
                 var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
                 var template = new NodeFieldTemplate();
 
                 // All tasks (nodes in this case) need to have an input, that isnt in the code of the behaviours
@@ -79,63 +76,65 @@ namespace Brian.Editor
 
                 foreach (var field in fields)
                 {
-                    OutputAttribute output = null;
-                    InputAttribute input = null;
+                    OutputAttribute output = field.GetCustomAttribute<OutputAttribute>();
+                    InputAttribute input = field.GetCustomAttribute<InputAttribute>();
+                    NodeSketch.Attributes.PropertyAttribute property = field.GetCustomAttribute<NodeSketch.Attributes.PropertyAttribute>();
 
-                    bool isOutput = IsOutput(field, out output);
-                    bool isInput = IsInput(field, out input);
+                    bool autoAdd = false;
+                    bool isInput = input == null ? false : true;
+                    bool isOutput = output == null ? false : true;
+
+                    if (output != null)
+                        autoAdd = output.AutoAddPortOnConnect;
+                    if (input != null)
+                        autoAdd = input.AutoAddPortOnConnect;
+
                     bool isList = IsListType(field);
-                    if (IsListType(field))
+
+                    if (output != null || input != null)
                     {
-                        AddGenericField(template, field, isInput, isOutput);
+                        if (IsListType(field))
+                        {
+                            AddGenericPort(template, field, isInput, isOutput, autoAdd);
+                        }
+                        else
+                        {
+                            AddNonGenericPort(template, field.FieldType, field.Name, field.Name, isInput, isOutput, autoAdd);
+                        }
                     }
-                    else
+                    else if (property != null)
                     {
-                        bool autoAdd = isInput ? input.AutoAddPortOnConnect : isOutput ? output.AutoAddPortOnConnect : false;
-                        AddNonGenericField(template, field, isInput, isOutput, autoAdd);
+                        AddNonGenericProperty(template, field, field.Name, field.Name);
                     }
                 }
-
                 templates.Add(type, template);
             }
         }
 
-        private void AddGenericField(NodeFieldTemplate template, FieldInfo field, bool isInput, bool isOutput)
+        private void AddGenericPort(NodeFieldTemplate template, FieldInfo field, bool isInput, bool isOutput, bool autoAddPortOnConnect)
         {
             var innerFieldType = field.FieldType.GetGenericArguments()[0];
-            AddNonGenericType(template, innerFieldType, innerFieldType.Name, innerFieldType.Name, isInput, isOutput);
+            AddNonGenericPort(template, innerFieldType, innerFieldType.Name, innerFieldType.Name, isInput, isOutput, autoAddPortOnConnect);
         }
-
-        private void AddNonGenericType(NodeFieldTemplate template, Type type, string memberName, string displayName, bool isInput, bool isOutput)
+        private void AddNonGenericPort(NodeFieldTemplate template, Type type, string memberName, string displayName, bool isInput, bool isOutput, bool autoAddPortOnConnect)
         {
             if (isOutput)
             {
-                template.OutputPorts.Add(new PortDescription(displayName, type, PortDirection.Output, false, true));
+                template.OutputPorts.Add(new PortDescription("Output", type, PortDirection.Output, false, autoAddPortOnConnect));
             }
             else if (isInput)
             {
-                template.InputPorts.Add(new PortDescription(displayName, type, PortDirection.Input, false, true));
+                template.InputPorts.Add(new PortDescription("Input", type, PortDirection.Input, false, autoAddPortOnConnect));
             }
             else
             {
-                //template.Properties.Add(new PropertyDescription { FieldType = field });
+                Debug.LogError($"Port {memberName} has to be either an input or an ouput!");
             }
         }
         
-        private void AddNonGenericField(NodeFieldTemplate template, FieldInfo field, bool isInput, bool isOutput, bool autoAddPortOnConnection = false)
+        private void AddNonGenericProperty(NodeFieldTemplate template, FieldInfo field, string memberName, string displayName)
         {
-            if (isInput)
-            {
-                template.InputPorts.Add(new PortDescription(field.Name, field.FieldType, PortDirection.Input, false, autoAddPortOnConnection));
-            }
-            else if (isOutput)
-            {
-                template.OutputPorts.Add(new PortDescription(field.Name, field.FieldType, PortDirection.Output, false, autoAddPortOnConnection));
-            }
-            else
-            {
-                template.Properties.Add(new PropertyDescription { FieldType = field });
-            }
+            template.Properties.Add(new PropertyDescription { FieldType = field });
         }
 
         private bool IsListType(FieldInfo field)
