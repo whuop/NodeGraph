@@ -19,7 +19,7 @@ namespace Brian.BT.Behaviours
         {
             if (status == Status.Running)
             {
-                Scheduler.ScheduleFirst(Decoratee, OnDecorateeComplete);
+                Scheduler.ScheduleLast(Decoratee, OnDecorateeComplete);
             }
             else if (status == Status.Invalid)
             {
@@ -27,7 +27,7 @@ namespace Brian.BT.Behaviours
             }
             else
             {
-                Scheduler.ScheduleFirst(Decoratee, OnDecorateeComplete);
+                Scheduler.ScheduleLast(Decoratee, OnDecorateeComplete);
             }
         }
     }

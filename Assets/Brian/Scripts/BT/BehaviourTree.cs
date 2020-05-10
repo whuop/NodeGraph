@@ -10,38 +10,41 @@ namespace Brian.BT
     {
         private IScheduler m_scheduler;
 
-        private Task m_root;
+        private Blackboard m_blackboard;
 
-        public BehaviourTree(IScheduler scheduler)
+        private Task m_root;
+        public Task Root { get { return m_root; } set { m_root = value; } }
+
+        private int m_maxSteps = 10;
+
+        public BehaviourTree(IScheduler scheduler, Blackboard blackboard)
         {
             m_scheduler = scheduler;
+            m_blackboard = blackboard;
         }
 
         public void Tick()
         {
             m_scheduler.InsertEndOfUpdateMarker();
 
+            int currentSteps = 0;
             //  Keep stepping through tasks until we reach the end of update marker
             while(m_scheduler.Step())
             {
+                currentSteps++;
+                if (currentSteps >= m_maxSteps)
+                {
+                    Debug.LogWarning("Reached max steps!");
+                    break;
+                }
             }
         }
 
-        public void Start(Task task, bool loopExecution)
+        public void Start()
         {
-            m_root = task;
-            task.Scheduler = m_scheduler;
-            if (!loopExecution)
-                m_scheduler.ScheduleFirst(task, null);
-            else
-                m_scheduler.ScheduleFirst(task, LoopExecution);
+            m_scheduler.ScheduleFirst(m_root, null);
         }
 
-        private void LoopExecution(Status status)
-        {
-            m_scheduler.ScheduleLast(m_root, LoopExecution);
-        }
-        
         public void Stop(Task task, Status status)
         {
             task.OnTerminate(status);

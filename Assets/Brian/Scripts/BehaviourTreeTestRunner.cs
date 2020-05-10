@@ -1,4 +1,5 @@
 ﻿using Brian;
+using Brian.BT;
 using Brian.BT.Behaviours;
 using Brian.BT.Schedulers;
 using NodeSketch;
@@ -12,35 +13,25 @@ public class BehaviourTreeTestRunner : MonoBehaviour
 
     private EntryTask m_loadedGraph;
 
-    private QueueScheduler m_scheduler;
+    private BehaviourTree m_bt;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_scheduler = new QueueScheduler();
-
         if (m_graphToLoad == null)
             return;
 
         m_loadedGraph = BehaviourTreeImporter.LoadGraph(m_graphToLoad);
         Debug.Log("Loaded Graph");
 
-        m_scheduler.ScheduleLast(m_loadedGraph, (Status status) =>
-        {
-            Debug.Log("Tree Complete!");
-        });
+        m_bt = new BehaviourTree(new QueueScheduler());
+        m_bt.Root = m_loadedGraph;
+        m_bt.Start();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!m_scheduler.Step())
-        {
-            Debug.Log("BT Complete");
-        }
-        else
-        {
-            Debug.Log("BT Still running");
-        }
+        m_bt.Tick();
     }
 }

@@ -19,12 +19,9 @@ namespace Brian.BT.Behaviours
 
         private void OnDecrateeComplete(Status status)
         {
-
-
-
             if (status == Status.Running)
             {
-                Scheduler.ScheduleFirst(Decoratee, OnDecrateeComplete);
+                Scheduler.ScheduleLast(Decoratee, OnDecrateeComplete);
             }
             else if (status == Status.Invalid)
             {

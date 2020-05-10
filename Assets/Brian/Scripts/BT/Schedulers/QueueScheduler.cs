@@ -40,7 +40,6 @@ namespace Brian.BT.Schedulers
 
         public void Terminate(Task task, Status status)
         {
-            //Debug.Log("Terminating Behaviour: " + task.ToString());
             task.OnTerminate(status);
             task.Observer?.Invoke(status);
         }
@@ -53,12 +52,18 @@ namespace Brian.BT.Schedulers
             }
 
             Task current = m_queuedTasks.Dequeue();
+            if (current == null)
+            {
+                Debug.Log("Reached end of update marker");
+                return false;
+            }
+
+            Debug.Log("Ticking: " + current.GetType().Name);
             TickBehaviour(current);
 
             //  Process the observer if the task is terminated
             if (current.Status != Status.Running && current.Observer != null)
             {
-                //Debug.Log("Invoking observer: " + current.ToString());
                 current.Observer.Invoke(current.Status);
             }
             else if (current.HasUpdate) // If it isnt terminated and has an update method, drop it in the queue for further processing
@@ -74,7 +79,6 @@ namespace Brian.BT.Schedulers
         {
             if (behaviour.Status != Status.Running)
             {
-                //Debug.Log("Initializing: " + behaviour);
                 behaviour.OnInitialize();
             }
 
@@ -83,7 +87,6 @@ namespace Brian.BT.Schedulers
 
             if (status != Status.Running)
             {
-                //Debug.Log("Terminating: " + behaviour);
                 behaviour.OnTerminate(status);
             }
 

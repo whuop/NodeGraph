@@ -13,14 +13,14 @@ namespace Brian.BT.Behaviours
         {
             base.OnInitialize();
 
-            Scheduler.ScheduleFirst(Decoratee, OnDecrateeComplete);
+            Scheduler.ScheduleFirst(Decoratee, OnDecorateeComplete);
         }
 
-        private void OnDecrateeComplete(Status status)
+        private void OnDecorateeComplete(Status status)
         {
             if (status == Status.Running)
             {
-                Scheduler.ScheduleFirst(Decoratee, OnDecrateeComplete);
+                Scheduler.ScheduleLast(Decoratee, OnDecorateeComplete);
             }
             else if (status == Status.Invalid)
             {
