@@ -40,28 +40,25 @@ namespace Brian.BT.Schedulers
 
         public void Terminate(Task task, Status status)
         {
-            Debug.Log("Terminating Behaviour: " + task.ToString());
+            //Debug.Log("Terminating Behaviour: " + task.ToString());
             task.OnTerminate(status);
             task.Observer?.Invoke(status);
         }
 
         public bool Step()
         {
-            Task current = m_queuedTasks.Dequeue();
-            if (current == null)
+            if (m_queuedTasks.Count == 0)
             {
-                Debug.Log("--Reached End of Tree--");
                 return false;
             }
 
-            //Debug.Log("Stepping: " + current.ToString());
-
+            Task current = m_queuedTasks.Dequeue();
             TickBehaviour(current);
 
             //  Process the observer if the task is terminated
             if (current.Status != Status.Running && current.Observer != null)
             {
-                Debug.Log("Invoking observer: " + current.ToString());
+                //Debug.Log("Invoking observer: " + current.ToString());
                 current.Observer.Invoke(current.Status);
             }
             else if (current.HasUpdate) // If it isnt terminated and has an update method, drop it in the queue for further processing
@@ -77,17 +74,16 @@ namespace Brian.BT.Schedulers
         {
             if (behaviour.Status != Status.Running)
             {
-                Debug.Log("Initializing: " + behaviour);
+                //Debug.Log("Initializing: " + behaviour);
                 behaviour.OnInitialize();
             }
 
             Status status = behaviour.OnUpdate();
             behaviour.Status = status;
-            //Debug.Log("Status: " + status);
 
             if (status != Status.Running)
             {
-                Debug.Log("Terminating: " + behaviour);
+                //Debug.Log("Terminating: " + behaviour);
                 behaviour.OnTerminate(status);
             }
 

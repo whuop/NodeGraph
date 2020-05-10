@@ -9,44 +9,97 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57defa6f0485d3240b22770f786a243f, type: 3}
+  m_Script: {fileID: 0}
   m_Name: graph
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp:NodeSketch:SerializedGraph
   m_nodes:
-  - m_guid: f48b1fd3-3d19-43e9-b54d-c9c527679215
-    m_nodeRuntimeTypeString: Brian.BT.Behaviours.Sequence, Assembly-CSharp, Version=0.0.0.0,
+  - m_guid: 02abdffa-1f40-4fbf-9400-539bd5c48fcb
+    m_nodeRuntimeTypeString: Brian.BT.Behaviours.EntryTask, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: -627, y: -355, z: 0}
+    m_editorPosition: {x: 268, y: 92, z: 0}
     m_nodeJsonData: '{}'
     m_isExpanded: 1
-  - m_guid: 5c05433e-f06e-4cdc-bcbe-31cfe6d81ef8
-    m_nodeRuntimeTypeString: Brian.BT.Behaviours.Sequence, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: -38, y: -508, z: 0}
+    m_serializedPorts:
+    - m_guid: 27b243a9-6fcb-499f-bcdd-81d87a56d5b3
+      m_displayName: Output
+      m_direction: 1
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 0
+  - m_guid: 78159d91-4570-4d1c-bc00-457cdc98396e
+    m_nodeRuntimeTypeString: Brian.BT.Behaviours.AlwaysRunning, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_editorPosition: {x: 731, y: 80, z: 0}
     m_nodeJsonData: '{}'
     m_isExpanded: 1
-  - m_guid: 9a6fa0c9-f73a-4bfb-ad55-54e195596189
-    m_nodeRuntimeTypeString: Brian.BT.Behaviours.Sequence, Assembly-CSharp, Version=0.0.0.0,
+    m_serializedPorts:
+    - m_guid: b95a6056-d0f9-4807-8557-af042f0e71ba
+      m_displayName: Input
+      m_direction: 0
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 0
+    - m_guid: dae3c463-2b37-48eb-9180-4f0f63dba75f
+      m_displayName: Output
+      m_direction: 1
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 0
+  - m_guid: d8d8c578-fee9-450b-8a84-48e8dde06f13
+    m_nodeRuntimeTypeString: Brian.BT.Behaviours.Selector, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: -46, y: -388, z: 0}
+    m_editorPosition: {x: 1266, y: 24, z: 0}
     m_nodeJsonData: '{}'
     m_isExpanded: 1
-  - m_guid: 614e1564-654e-4e1d-b399-15fe73ece6c8
+    m_serializedPorts:
+    - m_guid: 4c1c6b18-bd43-4357-abcb-524c28eab05e
+      m_displayName: Input
+      m_direction: 0
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 0
+    - m_guid: d839836a-fd26-4dc8-8f64-0d1fe1829a31
+      m_displayName: Output
+      m_direction: 1
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 1
+    - m_guid: 5fa7cec9-f6b1-4c58-b21c-ccb4479bf8ed
+      m_displayName: Output
+      m_direction: 1
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 1
+  - m_guid: 2c6a94ca-b961-4040-9d82-c9857c64808a
     m_nodeRuntimeTypeString: Brian.BT.Behaviours.TestTask, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: 427, y: -400, z: 0}
+    m_editorPosition: {x: 1722, y: -13, z: 0}
     m_nodeJsonData: '{}'
     m_isExpanded: 1
+    m_serializedPorts:
+    - m_guid: 4a04bd93-8155-4aaa-bc78-32b71f739b38
+      m_displayName: Input
+      m_direction: 0
+      m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      m_allowMultipleConnections: 0
+      m_addIdenticalPortOnConnect: 0
   m_edges:
-  - m_sourceNodeGUID: f48b1fd3-3d19-43e9-b54d-c9c527679215
-    m_sourcePortMemberName: 806ad262-ed28-4e69-90db-0565e49d3ff9
-    m_targetNodeGUID: 5c05433e-f06e-4cdc-bcbe-31cfe6d81ef8
-    m_targetPortMemberName: 035a3a8e-3b2d-4cb3-96d4-04874416f67b
-  - m_sourceNodeGUID: f48b1fd3-3d19-43e9-b54d-c9c527679215
-    m_sourcePortMemberName: 2c7ed893-0534-459b-ad77-e232061b425f
-    m_targetNodeGUID: 9a6fa0c9-f73a-4bfb-ad55-54e195596189
-    m_targetPortMemberName: dabd483b-00d9-400c-b552-301b4fb1ec1e
-  - m_sourceNodeGUID: 9a6fa0c9-f73a-4bfb-ad55-54e195596189
-    m_sourcePortMemberName: f70ed806-bf3a-4a0a-9f62-22bddd1686ec
-    m_targetNodeGUID: 614e1564-654e-4e1d-b399-15fe73ece6c8
-    m_targetPortMemberName: 154d115f-a7c9-4e81-aa56-67db2836eec5
+  - m_sourceNodeGUID: 02abdffa-1f40-4fbf-9400-539bd5c48fcb
+    m_sourcePortMemberName: 27b243a9-6fcb-499f-bcdd-81d87a56d5b3
+    m_targetNodeGUID: 78159d91-4570-4d1c-bc00-457cdc98396e
+    m_targetPortMemberName: b95a6056-d0f9-4807-8557-af042f0e71ba
+  - m_sourceNodeGUID: 78159d91-4570-4d1c-bc00-457cdc98396e
+    m_sourcePortMemberName: dae3c463-2b37-48eb-9180-4f0f63dba75f
+    m_targetNodeGUID: d8d8c578-fee9-450b-8a84-48e8dde06f13
+    m_targetPortMemberName: 4c1c6b18-bd43-4357-abcb-524c28eab05e
+  - m_sourceNodeGUID: d8d8c578-fee9-450b-8a84-48e8dde06f13
+    m_sourcePortMemberName: d839836a-fd26-4dc8-8f64-0d1fe1829a31
+    m_targetNodeGUID: 2c6a94ca-b961-4040-9d82-c9857c64808a
+    m_targetPortMemberName: 4a04bd93-8155-4aaa-bc78-32b71f739b38

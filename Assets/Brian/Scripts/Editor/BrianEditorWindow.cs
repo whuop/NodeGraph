@@ -36,7 +36,7 @@ namespace Brian.Editor
                         title = type.FullName.Split('.');
                     }
 
-                    //  Ignoore abstract types
+                    //  Ignore abstract types
                     if (type.IsAbstract)
                         continue;
 
@@ -70,9 +70,12 @@ namespace Brian.Editor
                 var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
                 var template = new NodeFieldTemplate();
 
+                var supressInput = type.GetCustomAttribute<SupressInputAttribute>();
+
                 // All tasks (nodes in this case) need to have an input, that isnt in the code of the behaviours
                 // so we just add it in the first thing we do.
-                template.InputPorts.Add(new PortDescription("Input", typeof(Task), PortDirection.Input, false, false));
+                if (supressInput == null)
+                    template.InputPorts.Add(new PortDescription("Input", typeof(Task), PortDirection.Input, false, false));
 
                 foreach (var field in fields)
                 {

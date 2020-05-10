@@ -12,7 +12,7 @@ namespace NodeSketch.Editor
 {
     public class NodeSketchEditorView : VisualElement
     {
-        private NodeGraph m_graph;
+        private SerializedGraph m_graph;
         private NodeSketchGraphView m_graphView;
         private EditorWindow m_editorWindow;
         private EdgeConnectorListener m_edgeConnectorListener;
@@ -23,7 +23,7 @@ namespace NodeSketch.Editor
         public NodeSketchEditorView(EditorWindow window, NodeProvider nodeProvider, FieldProvider fieldProvider)
         {
             m_editorWindow = window;
-            m_graph = ScriptableObject.CreateInstance<NodeGraph>();
+            m_graph = ScriptableObject.CreateInstance<SerializedGraph>();
             m_nodeProvider = nodeProvider;
             m_fieldProvider = fieldProvider;
             m_fieldProvider.ConstructNodeFieldTemplates(m_nodeProvider);
@@ -109,14 +109,14 @@ namespace NodeSketch.Editor
             path = "Assets" + path.Substring(Application.dataPath.Length);
             Debug.Log("Loading Graph at path: " + path);
 
-            var graph = AssetDatabase.LoadAssetAtPath<NodeGraph>(path);
+            var graph = AssetDatabase.LoadAssetAtPath<SerializedGraph>(path);
             Debug.Log("Num Nodes: " + graph.Nodes.Count);
             if (graph == null)
             {
                 Debug.LogError("Failed to load graph!");
             }
 
-            m_graph = ScriptableObject.CreateInstance<NodeGraph>();
+            m_graph = ScriptableObject.CreateInstance<SerializedGraph>();
 
             
             for(int i = 0; i < graph.Nodes.Count; i++)

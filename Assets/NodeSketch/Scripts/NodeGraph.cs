@@ -6,7 +6,7 @@ using UnityEngine;
 namespace NodeSketch
 {
     [System.Serializable]
-    public class NodeGraph : ScriptableObject
+    public class SerializedGraph : ScriptableObject
     {
         [SerializeField]
         private List<SerializedNode> m_nodes;
