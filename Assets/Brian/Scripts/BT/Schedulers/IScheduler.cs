@@ -14,9 +14,9 @@ namespace Brian.BT.Schedulers
 
         void Terminate(Task task, Status status);
 
-        bool Step();
+        bool Step(Blackboard blackboard);
 
-        Status TickBehaviour(Task behaviour);
+        Status TickBehaviour(Task behaviour, Blackboard blackboard);
     }
 
 }

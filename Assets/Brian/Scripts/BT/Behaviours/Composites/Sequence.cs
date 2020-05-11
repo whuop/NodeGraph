@@ -8,9 +8,9 @@ namespace Brian.BT.Behaviours
     [Title("Brian/Composites/Sequence")]
     public class Sequence : Composite
     {
-        public override void OnInitialize()
+        public override void OnInitialize(Blackboard blackboard)
         {
-            base.OnInitialize();
+            base.OnInitialize(blackboard);
             Scheduler.ScheduleFirst(Children[m_currentChild], OnChildComplete);
         }
 

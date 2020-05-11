@@ -7,31 +7,31 @@ namespace Brian.BT
 {
     public class Blackboard
     {
-        private Dictionary<Guid, BlackboardValue> m_values = new Dictionary<Guid, BlackboardValue>();
+        private Dictionary<string, BlackboardValue> m_values = new Dictionary<string, BlackboardValue>();
 
         public Blackboard()
         {
 
         }
 
-        public void AddKey(Guid id, Type valueType, object value = null)
+        public void AddKey(string key, Type valueType, object value = null)
         {
-            m_values.Add(id, new BlackboardValue(valueType, value));
+            m_values.Add(key, new BlackboardValue(valueType, value));
         }
 
-        public void RemoveKey(Guid id)
+        public void RemoveKey(string key)
         {
-            m_values.Remove(id);
+            m_values.Remove(key);
         }
 
-        public T GetValue<T>(Guid id)
+        public T GetValue<T>(string key)
         {
-            return m_values[id].GetValue<T>();
+            return m_values[key].GetValue<T>();
         }
 
-        public void SetValue(Guid id, object value)
+        public void SetValue(string key, object value)
         {
-            m_values[id].SetValue(value);
+            m_values[key].SetValue(value);
         }
     }
 

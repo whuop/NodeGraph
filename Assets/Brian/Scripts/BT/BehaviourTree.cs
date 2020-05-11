@@ -29,7 +29,7 @@ namespace Brian.BT
 
             int currentSteps = 0;
             //  Keep stepping through tasks until we reach the end of update marker
-            while(m_scheduler.Step())
+            while(m_scheduler.Step(m_blackboard))
             {
                 currentSteps++;
                 if (currentSteps >= m_maxSteps)
@@ -47,7 +47,7 @@ namespace Brian.BT
 
         public void Stop(Task task, Status status)
         {
-            task.OnTerminate(status);
+            task.OnTerminate(status, m_blackboard);
             task.Observer?.Invoke(status);
         }
     }

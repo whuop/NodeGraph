@@ -8,19 +8,26 @@ namespace Brian.BT.Behaviours
     [Title("Brian/Tasks/Test Task")]
     public class TestTask : Task
     {
-        public override void OnInitialize()
+        public override void OnInitialize(Blackboard blackboard)
         {
-            base.OnInitialize();
+            base.OnInitialize(blackboard);
         }
 
-        public override Status OnUpdate()
+        public override Status OnUpdate(Blackboard blackboard)
         {
+            int value = blackboard.GetValue<int>("testInt");
+
+            Debug.Log("Value is: " + value);
+
+            value++;
+            blackboard.SetValue("testInt", value);
+
             return Status.Success;
         }
 
-        public override void OnTerminate(Status status)
+        public override void OnTerminate(Status status, Blackboard blackboard)
         {
-            base.OnTerminate(status);
+            base.OnTerminate(status, blackboard);
         }
     }
 }

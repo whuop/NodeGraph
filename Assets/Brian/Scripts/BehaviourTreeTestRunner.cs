@@ -24,7 +24,10 @@ public class BehaviourTreeTestRunner : MonoBehaviour
         m_loadedGraph = BehaviourTreeImporter.LoadGraph(m_graphToLoad);
         Debug.Log("Loaded Graph");
 
-        m_bt = new BehaviourTree(new QueueScheduler());
+        Blackboard blackboard = new Blackboard();
+        blackboard.AddKey("testInt", typeof(int), 0);
+
+        m_bt = new BehaviourTree(new QueueScheduler(), blackboard);
         m_bt.Root = m_loadedGraph;
         m_bt.Start();
     }

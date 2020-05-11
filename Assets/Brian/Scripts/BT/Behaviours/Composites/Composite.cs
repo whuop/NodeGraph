@@ -30,19 +30,19 @@ namespace Brian.BT.Behaviours
             m_children.Clear();
         }
 
-        public override void OnInitialize()
+        public override void OnInitialize(Blackboard blackboard)
         {
-            base.OnInitialize();
+            base.OnInitialize(blackboard);
             m_currentChild = 0;
         }
 
-        public override Status OnUpdate()
+        public override Status OnUpdate(Blackboard blackboard)
         {
             return Status.Running;
         }
-        public override void OnTerminate(Status status)
+        public override void OnTerminate(Status status, Blackboard blackboard)
         {
-            base.OnTerminate(status);
+            base.OnTerminate(status, blackboard);
         }
     }
 }
