@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Brian.BT.Behaviours
 {
-    public abstract class Composite : Task
+    public abstract class Composite : Task 
     {
         [Output(autoAddPortOnConnect: true)]
         protected List<Task> m_children = new List<Task>();
@@ -30,19 +30,19 @@ namespace Brian.BT.Behaviours
             m_children.Clear();
         }
 
-        public override void OnInitialize(Blackboard blackboard)
+        public override void OnInitialize()
         {
-            base.OnInitialize(blackboard);
+            base.OnInitialize();
             m_currentChild = 0;
         }
 
-        public override Status OnUpdate(Blackboard blackboard)
+        public override Status OnUpdate()
         {
             return Status.Running;
         }
-        public override void OnTerminate(Status status, Blackboard blackboard)
+        public override void OnTerminate(Status status)
         {
-            base.OnTerminate(status, blackboard);
+            base.OnTerminate(status);
         }
     }
 }

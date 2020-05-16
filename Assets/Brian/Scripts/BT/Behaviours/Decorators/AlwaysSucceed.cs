@@ -10,9 +10,9 @@ namespace Brian.BT.Behaviours
     {
         public override bool HasUpdate => false;
 
-        public override void OnInitialize(Blackboard blackboard)
+        public override void OnInitialize()
         {
-            base.OnInitialize(blackboard);
+            base.OnInitialize();
 
             Scheduler.ScheduleFirst(Decoratee, OnDecrateeComplete);
         }

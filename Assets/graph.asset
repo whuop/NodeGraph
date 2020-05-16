@@ -9,53 +9,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 57defa6f0485d3240b22770f786a243f, type: 3}
   m_Name: graph
-  m_EditorClassIdentifier: Assembly-CSharp:NodeSketch:SerializedGraph
+  m_EditorClassIdentifier: 
   m_nodes:
-  - m_guid: 22e532a2-9dce-46f5-8d2d-2b369508c341
+  - m_guid: 5b77449c-e729-49c4-80d0-d419b5342b65
     m_nodeRuntimeTypeString: Brian.BT.Behaviours.EntryTask, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: 775, y: 162, z: 0}
+    m_editorPosition: {x: 699.6025, y: 48.93249, z: 0}
     m_nodeJsonData: '{}'
     m_isExpanded: 1
     m_serializedPorts:
-    - m_guid: addc081e-7120-47eb-a62a-0a626bb94547
+    - m_guid: 40591150-b932-4ef2-b4ed-ec7712714fcc
       m_displayName: Output
       m_direction: 1
       m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       m_allowMultipleConnections: 0
       m_addIdenticalPortOnConnect: 0
-  - m_guid: 6af1ca70-1388-4ee8-8bc9-31d70657b209
-    m_nodeRuntimeTypeString: Brian.BT.Behaviours.AlwaysRunning, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: 1155, y: 165, z: 0}
+  - m_guid: 88339010-a895-40ca-9b7b-48b267c52f0b
+    m_nodeRuntimeTypeString: Brian.BT.Behaviours.RepeatAlways, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_editorPosition: {x: 1126, y: 49, z: 0}
     m_nodeJsonData: '{}'
     m_isExpanded: 1
     m_serializedPorts:
-    - m_guid: 6d7d296e-f80d-4e50-a85e-921e1bdfb5c7
+    - m_guid: fb9b93dd-a7de-4310-9f23-0fb59f5b4657
       m_displayName: Input
       m_direction: 0
       m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       m_allowMultipleConnections: 0
       m_addIdenticalPortOnConnect: 0
-    - m_guid: 15ab9dab-3c32-428d-b05c-a06b839a4bd8
+    - m_guid: d3ca0a95-5d80-4621-bd43-869f7d4ca67f
       m_displayName: Output
       m_direction: 1
       m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       m_allowMultipleConnections: 0
       m_addIdenticalPortOnConnect: 0
-  - m_guid: 83a52304-73c1-4132-8ac3-0235cd1611e9
+  - m_guid: e3566334-ce0c-4c95-b5f4-85d259c05188
     m_nodeRuntimeTypeString: Brian.BT.Behaviours.TestTask, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: 1539, y: 166, z: 0}
+    m_editorPosition: {x: 1579, y: 47, z: 0}
     m_nodeJsonData: '{}'
     m_isExpanded: 1
     m_serializedPorts:
-    - m_guid: dacc2320-3fd0-4823-9cd4-d56c662e6f0d
+    - m_guid: a1bfe9a7-1a8d-4d1a-8895-c9dbf97d1d4d
       m_displayName: Input
       m_direction: 0
       m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -63,11 +63,11 @@ MonoBehaviour:
       m_allowMultipleConnections: 0
       m_addIdenticalPortOnConnect: 0
   m_edges:
-  - m_sourceNodeGUID: 22e532a2-9dce-46f5-8d2d-2b369508c341
-    m_sourcePortMemberName: addc081e-7120-47eb-a62a-0a626bb94547
-    m_targetNodeGUID: 6af1ca70-1388-4ee8-8bc9-31d70657b209
-    m_targetPortMemberName: 6d7d296e-f80d-4e50-a85e-921e1bdfb5c7
-  - m_sourceNodeGUID: 6af1ca70-1388-4ee8-8bc9-31d70657b209
-    m_sourcePortMemberName: 15ab9dab-3c32-428d-b05c-a06b839a4bd8
-    m_targetNodeGUID: 83a52304-73c1-4132-8ac3-0235cd1611e9
-    m_targetPortMemberName: dacc2320-3fd0-4823-9cd4-d56c662e6f0d
+  - m_sourceNodeGUID: 5b77449c-e729-49c4-80d0-d419b5342b65
+    m_sourcePortMemberName: 40591150-b932-4ef2-b4ed-ec7712714fcc
+    m_targetNodeGUID: 88339010-a895-40ca-9b7b-48b267c52f0b
+    m_targetPortMemberName: fb9b93dd-a7de-4310-9f23-0fb59f5b4657
+  - m_sourceNodeGUID: 88339010-a895-40ca-9b7b-48b267c52f0b
+    m_sourcePortMemberName: d3ca0a95-5d80-4621-bd43-869f7d4ca67f
+    m_targetNodeGUID: e3566334-ce0c-4c95-b5f4-85d259c05188
+    m_targetPortMemberName: a1bfe9a7-1a8d-4d1a-8895-c9dbf97d1d4d

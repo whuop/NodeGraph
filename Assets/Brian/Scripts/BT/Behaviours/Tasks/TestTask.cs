@@ -1,4 +1,6 @@
-﻿using NodeSketch.Attributes;
+﻿using Brian.BT.Attributes;
+using Brian.BT.Blackboards;
+using NodeSketch.Attributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,26 +10,23 @@ namespace Brian.BT.Behaviours
     [Title("Brian/Tasks/Test Task")]
     public class TestTask : Task
     {
-        public override void OnInitialize(Blackboard blackboard)
+        [Request]
+        private ITestBlackboard m_blackboard { get; set; }
+
+        public override void OnInitialize()
         {
-            base.OnInitialize(blackboard);
+            base.OnInitialize();
         }
 
-        public override Status OnUpdate(Blackboard blackboard)
+        public override Status OnUpdate()
         {
-            int value = blackboard.GetValue<int>("testInt");
-
-            Debug.Log("Value is: " + value);
-
-            value++;
-            blackboard.SetValue("testInt", value);
-
+            m_blackboard.TestInt++;
             return Status.Success;
         }
 
-        public override void OnTerminate(Status status, Blackboard blackboard)
+        public override void OnTerminate(Status status)
         {
-            base.OnTerminate(status, blackboard);
+            base.OnTerminate(status);
         }
     }
 }

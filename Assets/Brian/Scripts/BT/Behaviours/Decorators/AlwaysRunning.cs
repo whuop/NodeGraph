@@ -6,13 +6,13 @@ using UnityEngine;
 namespace Brian.BT.Behaviours
 {
     [Title("Brian/Decorators/Repeat Always")]
-    public class AlwaysRunning : Decorator
+    public class RepeatAlways : Decorator
     {
         public override bool HasUpdate => false;
 
-        public override void OnInitialize(Blackboard blackboard)
+        public override void OnInitialize()
         {
-            base.OnInitialize(blackboard);
+            base.OnInitialize();
             Scheduler.ScheduleFirst(Decoratee, OnDecorateeComplete);
         }
         private void OnDecorateeComplete(Status status)

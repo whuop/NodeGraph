@@ -1,15 +1,18 @@
-﻿using Brian.BT.Behaviours;
+﻿using Brian.BT;
+using Brian.BT.Behaviours;
 using NodeSketch;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
+using Brian.BT.Attributes;
 
 namespace Brian
 {
     public class BehaviourTreeImporter
     {
-        public static EntryTask LoadGraph(SerializedGraph graph)
+        public static void LoadGraph(SerializedGraph graph, BehaviourTree behaviourTree, BlackboardManager bbManager)
         {
             EntryTask graphEntry = null;
             Dictionary<string, Task> tasks = new Dictionary<string, Task>();
@@ -26,7 +29,9 @@ namespace Brian
                 }
                 else
                 {
-                    tasks.Add(serializedNode.Guid, (Task)Activator.CreateInstance(behaviourType));
+                    var task = (Task)Activator.CreateInstance(behaviourType);
+                    tasks.Add(serializedNode.Guid, task);
+                    bbManager.BindTask(task);
                 }
             }
 
@@ -55,7 +60,7 @@ namespace Brian
                     decorator.Decoratee = target;
                 }
             }
-            return graphEntry;
+            behaviourTree.Root = graphEntry;
         }
     }
 }

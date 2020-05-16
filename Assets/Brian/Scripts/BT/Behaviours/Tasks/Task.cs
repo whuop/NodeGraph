@@ -40,13 +40,13 @@ namespace Brian.BT.Behaviours
             get { return false; }
         }
 
-        public virtual void OnInitialize(Blackboard blackboard) { }
-        public virtual void OnTerminate(Status status, Blackboard blackboard)
+        public virtual void OnInitialize() { }
+        public virtual void OnTerminate(Status status)
         {
             Status = status;
         }
 
-        public virtual Status OnUpdate(Blackboard blackboard) { return Status.Running; }
+        public virtual Status OnUpdate() { return Status.Running; }
     }
 }
 

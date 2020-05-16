@@ -40,12 +40,11 @@ namespace Brian.BT.Schedulers
 
         public void Terminate(Task task, Status status)
         {
-            //  TODO: Might break things having null here
-            task.OnTerminate(status, null);
+            task.OnTerminate(status);
             task.Observer?.Invoke(status);
         }
 
-        public bool Step(Blackboard blackboard)
+        public bool Step()
         {
             if (m_queuedTasks.Count == 0)
             {
@@ -60,7 +59,7 @@ namespace Brian.BT.Schedulers
             }
 
             Debug.Log("Ticking: " + current.GetType().Name);
-            TickBehaviour(current, blackboard);
+            TickBehaviour(current);
 
             //  Process the observer if the task is terminated
             if (current.Status != Status.Running && current.Observer != null)
@@ -76,19 +75,19 @@ namespace Brian.BT.Schedulers
 
         
 
-        public Status TickBehaviour(Task behaviour, Blackboard blackboard)
+        public Status TickBehaviour(Task behaviour)
         {
             if (behaviour.Status != Status.Running)
             {
-                behaviour.OnInitialize(blackboard);
+                behaviour.OnInitialize();
             }
 
-            Status status = behaviour.OnUpdate(blackboard);
+            Status status = behaviour.OnUpdate();
             behaviour.Status = status;
 
             if (status != Status.Running)
             {
-                behaviour.OnTerminate(status, blackboard);
+                behaviour.OnTerminate(status);
             }
 
             return status;

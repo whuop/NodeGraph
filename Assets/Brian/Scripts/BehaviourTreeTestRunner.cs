@@ -1,8 +1,10 @@
 ﻿using Brian;
 using Brian.BT;
 using Brian.BT.Behaviours;
+using Brian.BT.Blackboards;
 using Brian.BT.Schedulers;
 using NodeSketch;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,21 +17,34 @@ public class BehaviourTreeTestRunner : MonoBehaviour
 
     private BehaviourTree m_bt;
 
+    private BlackboardManager m_blackboardManager;
+
+    private Guid m_guid;
+    private TestBlackboard m_testBlackboard;
+
+    private BTAgent m_btAgent;
+    
     // Start is called before the first frame update
     void Start()
     {
+        m_btAgent = new BTAgent(new QueueScheduler());
+        TestBlackboard blackboard = new TestBlackboard();
+        m_btAgent.AddBlackboard(blackboard);
+        
+        m_guid = Guid.NewGuid();
+        m_blackboardManager = new BlackboardManager();
+        
         if (m_graphToLoad == null)
             return;
 
-        m_loadedGraph = BehaviourTreeImporter.LoadGraph(m_graphToLoad);
-        Debug.Log("Loaded Graph");
+        m_bt = new BehaviourTree(m_blackboardManager);
+        
 
-        Blackboard blackboard = new Blackboard();
-        blackboard.AddKey("testInt", typeof(int), 0);
-
-        m_bt = new BehaviourTree(new QueueScheduler(), blackboard);
+        
+        
         m_bt.Root = m_loadedGraph;
-        m_bt.Start();
+        m_bt.Start(m_btAgent);
+       
     }
 
     // Update is called once per frame
@@ -37,4 +52,10 @@ public class BehaviourTreeTestRunner : MonoBehaviour
     {
         m_bt.Tick();
     }
+}
+
+public class TestBlackboard : ITestBlackboard
+{
+    private int m_testInt;
+    public int TestInt { get => m_testInt; set => m_testInt = value; }
 }

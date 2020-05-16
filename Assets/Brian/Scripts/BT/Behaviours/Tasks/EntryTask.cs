@@ -13,9 +13,9 @@ namespace Brian.BT.Behaviours
         private Task m_treeRoot;
         public Task TreeRoot { get { return m_treeRoot; } set { m_treeRoot = value; } }
 
-        public override void OnInitialize(Blackboard blackboard)
+        public override void OnInitialize()
         {
-            base.OnInitialize(blackboard);
+            base.OnInitialize();
             Scheduler.ScheduleFirst(m_treeRoot, OnChildComplete);
         }
 

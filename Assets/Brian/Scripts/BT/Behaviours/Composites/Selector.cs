@@ -8,9 +8,9 @@ namespace Brian.BT.Behaviours
     [Title("Brian/Composites/Selector")]
     public class Selector : Composite
     {
-        public override void OnInitialize(Blackboard blackboard)
+        public override void OnInitialize()
         {
-            base.OnInitialize(blackboard);
+            base.OnInitialize();
             Scheduler.ScheduleFirst(Children[m_currentChild], OnChildComplete);
         }
 
