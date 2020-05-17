@@ -322,10 +322,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1312210419}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa8d45253c624714d99e72a29c2446c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a4e1a19831989f42a514853b6b9a34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_graphToLoad: {fileID: 11400000, guid: 3dbbc040343da1849adeecb664f608aa, type: 2}
+  m_graph: {fileID: 11400000, guid: 3dbbc040343da1849adeecb664f608aa, type: 2}
 --- !u!4 &1312210421
 Transform:
   m_ObjectHideFlags: 0

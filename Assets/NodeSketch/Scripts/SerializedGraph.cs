@@ -1,4 +1,5 @@
 ﻿using NodeSketch.Nodes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,10 @@ namespace NodeSketch
     [System.Serializable]
     public class SerializedGraph : ScriptableObject
     {
+        [SerializeField]
+        private string m_id;
+        public Guid Id { get { return Guid.Parse(m_id); } set { m_id = value.ToString(); } }
+
         [SerializeField]
         private List<SerializedNode> m_nodes;
         public List<SerializedNode> Nodes { get { return m_nodes; } }

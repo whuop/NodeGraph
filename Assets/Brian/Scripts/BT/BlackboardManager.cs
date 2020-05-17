@@ -1,12 +1,9 @@
 ﻿using Brian.BT.Attributes;
 using Brian.BT.Behaviours;
-using Brian.BT.Blackboards;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using Unity.Properties;
 using UnityEngine;
 
 namespace Brian.BT

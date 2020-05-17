@@ -54,11 +54,9 @@ namespace Brian.BT.Schedulers
             Task current = m_queuedTasks.Dequeue();
             if (current == null)
             {
-                Debug.Log("Reached end of update marker");
                 return false;
             }
 
-            Debug.Log("Ticking: " + current.GetType().Name);
             TickBehaviour(current);
 
             //  Process the observer if the task is terminated
@@ -72,8 +70,6 @@ namespace Brian.BT.Schedulers
             }
             return true;
         }
-
-        
 
         public Status TickBehaviour(Task behaviour)
         {

@@ -1,8 +1,6 @@
 ﻿using Brian.BT.Schedulers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Brian.BT
 {
@@ -34,11 +32,16 @@ namespace Brian.BT
 
         public T GetBlackboard<T>()
         {
+            Type type = typeof(T);
+            if (!m_blackboards.ContainsKey(type))
+                return default(T);
             return (T)m_blackboards[typeof(T)];
         }
 
         public object GetBlackboard(Type type)
         {
+            if (!m_blackboards.ContainsKey(type))
+                return null;
             return m_blackboards[type];
         }
     }

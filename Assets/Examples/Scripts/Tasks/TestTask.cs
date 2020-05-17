@@ -1,13 +1,12 @@
 ﻿using Brian.BT.Attributes;
-using Brian.BT.Blackboards;
+using Brian.BT.Behaviours;
+using Examples.Blackboards;
 using NodeSketch.Attributes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Brian.BT.Behaviours
+namespace Examples.Tasks
 {
-    [Title("Brian/Tasks/Test Task")]
+    [Title("Examples/Tasks/Test Task")]
     public class TestTask : Task
     {
         [Request]

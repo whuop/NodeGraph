@@ -1,8 +1,6 @@
 ﻿using NodeSketch.Editor.DataProviders;
 using NodeSketch.Editor.GraphElements;
 using NodeSketch.Editor.Ports;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -94,6 +92,12 @@ namespace NodeSketch.Editor
                 ((GraphNode)node).SynchronizeToSerializedNode();
             }
 
+            //  Generate new Guid for the graph.
+            //  This can be handled better so it only happens first time the graph is created
+            m_graph.Id = System.Guid.NewGuid();
+
+            //  Makes inspectors lose reference. 
+            //  TODO: Load and save changes instead of creating new every save.
             AssetDatabase.CreateAsset(m_graph, path);
             AssetDatabase.Refresh();
         }
@@ -107,8 +111,7 @@ namespace NodeSketch.Editor
                 return;
             }
             path = "Assets" + path.Substring(Application.dataPath.Length);
-            Debug.Log("Loading Graph at path: " + path);
-
+            
             var graph = AssetDatabase.LoadAssetAtPath<SerializedGraph>(path);
             Debug.Log("Num Nodes: " + graph.Nodes.Count);
             if (graph == null)

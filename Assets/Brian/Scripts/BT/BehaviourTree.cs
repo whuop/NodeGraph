@@ -29,12 +29,18 @@ namespace Brian.BT
             while(m_scheduler.Step())
             {
             }
+
+            Debug.Log("BT Tick Finished");
+        }
+
+        public void SwitchContext(BTAgent agent)
+        {
+            m_blackboardManager.InjectBlackboards(agent);
+            m_scheduler = agent.Scheduler;
         }
 
         public void Start(BTAgent agent)
         {
-            m_blackboardManager.InjectBlackboards(agent);
-            m_scheduler = agent.Scheduler;
             m_scheduler.ScheduleFirst(m_root, null);
         }
 
