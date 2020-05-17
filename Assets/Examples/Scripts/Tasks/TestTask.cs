@@ -20,6 +20,7 @@ namespace Examples.Tasks
         public override Status OnUpdate()
         {
             m_blackboard.TestInt++;
+            //Debug.Log($"{m_blackboard.AgentName} Value is {m_blackboard.TestInt}");
             return Status.Success;
         }
 

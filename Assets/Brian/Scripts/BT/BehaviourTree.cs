@@ -16,13 +16,17 @@ namespace Brian.BT
         private Task m_root;
         public Task Root { get { return m_root; } set { m_root = value; } }
 
+        private bool m_isRunning = false;
+        public bool IsRunning { get { return m_isRunning; } }
+
         public BehaviourTree(BlackboardManager blackboardManager)
         {
             m_blackboardManager = blackboardManager;
         }
 
-        public void Tick()
+        public void Tick(object obj = null)
         {
+            m_isRunning = true;
             m_scheduler.InsertEndOfUpdateMarker();
 
             //  Keep stepping through tasks until we reach the end of update marker
@@ -30,12 +34,12 @@ namespace Brian.BT
             {
             }
 
-            Debug.Log("BT Tick Finished");
+            m_isRunning = false;
         }
 
         public void SwitchContext(BTAgent agent)
         {
-            m_blackboardManager.InjectBlackboards(agent);
+            m_blackboardManager.InjectBlackboards(this, agent);
             m_scheduler = agent.Scheduler;
         }
 

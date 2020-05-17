@@ -37,14 +37,33 @@ namespace Brian.BT
             m_treeScheduler = new ThreadedTreeScheduler();
         }
 
+        public void RunBehaviourTree(BehaviourTree tree, BTAgent agent)
+        {
+            m_treeScheduler.Start(tree, agent);
+        }
+
+        public void StopBehaviourTree(BTAgent agent)
+        {
+            m_treeScheduler.Stop(agent);
+        }
+
+        public void TickBehaviourTrees()
+        {
+            m_treeScheduler.Tick();
+        }
+
         public BehaviourTree LoadGraph(SerializedGraph graph)
         {
-            if (m_loadedGraphs.ContainsKey(graph.Id))
-                return m_loadedGraphs[graph.Id];
+            /*Guid id = Guid.NewGuid();
+            if (m_loadedGraphs.ContainsKey(id))
+                return m_loadedGraphs[id];
 
+            graph.Id = id;
+            */
             BehaviourTree tree = new BehaviourTree(m_blackboardManager);
             BehaviourTreeImporter.LoadGraph(graph, tree, m_blackboardManager);
-            m_loadedGraphs.Add(graph.Id, tree);
+            //m_loadedGraphs.Add(graph.Id, tree);
+            UnityEngine.Debug.LogError("Returning new BT!");
             return tree;
         }
     }

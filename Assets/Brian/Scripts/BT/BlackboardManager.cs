@@ -12,31 +12,30 @@ namespace Brian.BT
     {
         private struct PropertyMap
         {
+            public Task Task;
             public Type PropertyType;
             public MethodInfo SetMethod;
         }
 
-        private Dictionary<Task, List<PropertyMap>> m_taskBindings = new Dictionary<Task, List<PropertyMap>>();
+        private Dictionary<BehaviourTree, List<PropertyMap>> m_taskBindings = new Dictionary<BehaviourTree, List<PropertyMap>>();
 
         public BlackboardManager()
         {
 
         }
 
-        public void InjectBlackboards(BTAgent agent)
+        public void InjectBlackboards(BehaviourTree tree, BTAgent agent)
         {
             object[] blackboards = new object[1];
-            foreach(var kvp in m_taskBindings)
+
+            foreach(var prop in m_taskBindings[tree])
             {
-                foreach(var prop in kvp.Value)
-                {
-                    blackboards[0] = agent.GetBlackboard(prop.PropertyType);
-                    prop.SetMethod.Invoke(kvp.Key, blackboards);
-                }
+                blackboards[0] = agent.GetBlackboard(prop.PropertyType);
+                prop.SetMethod.Invoke(prop.Task, blackboards);
             }
         }
 
-        public void BindTask(Task task)
+        public void BindTask(BehaviourTree tree, Task task)
         {
             //  Find all properties for the task
             var properties = task.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -49,23 +48,24 @@ namespace Brian.BT
                 Debug.Log($"Property {property.Name} is Requesting Blackboard {property.PropertyType.Name}");
                 var setMethod = property.GetSetMethod(true);
 
-                var taskBinding = GetTaskBindings(task);
+                var taskBinding = GetTaskBindings(tree);
                 taskBinding.Add(new PropertyMap
                 {
+                    Task = task,
                     PropertyType = property.PropertyType,
                     SetMethod = setMethod
                 });
             }
         }
 
-        private List<PropertyMap> GetTaskBindings(Task task)
+        private List<PropertyMap> GetTaskBindings(BehaviourTree tree)
         {
-            if (!m_taskBindings.ContainsKey(task))
+            if (!m_taskBindings.ContainsKey(tree))
             {
-                m_taskBindings.Add(task, new List<PropertyMap>());
+                m_taskBindings.Add(tree, new List<PropertyMap>());
             }
 
-            return m_taskBindings[task];
+            return m_taskBindings[tree];
         }
     }
 }

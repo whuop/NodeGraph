@@ -17,7 +17,8 @@ namespace Examples.Blackboards
 
         private void InitializeBlackboards(BTAgent agent)
         {
-            agent.AddBlackboard(new TestBlackboard { 
+            agent.AddBlackboard(new TestBlackboard {
+                AgentName = this.gameObject.name,
                 TestInt = 100
             });
         }

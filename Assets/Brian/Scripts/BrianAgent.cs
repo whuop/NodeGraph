@@ -39,17 +39,12 @@ namespace Brian
             m_bt.SwitchContext(m_btAgent);
             m_bt.Start(m_btAgent);
 
-            Thread thread = new Thread(new ThreadStart(m_bt.Tick));
-            thread.Start();
+            BehaviourTreeManager.Instance.RunBehaviourTree(m_bt, m_btAgent);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnDestroy()
         {
-            //if (m_bt == null)
-            //    return;
-
-            //m_bt.Tick();
+            BehaviourTreeManager.Instance.StopBehaviourTree(m_btAgent);
         }
     }
 }

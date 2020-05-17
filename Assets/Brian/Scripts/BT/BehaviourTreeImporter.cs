@@ -31,7 +31,7 @@ namespace Brian
                 {
                     var task = (Task)Activator.CreateInstance(behaviourType);
                     tasks.Add(serializedNode.Guid, task);
-                    bbManager.BindTask(task);
+                    bbManager.BindTask(behaviourTree, task);
                 }
             }
 
