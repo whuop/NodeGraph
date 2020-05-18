@@ -1,5 +1,6 @@
 ﻿using Brian.BT;
 using Brian.BT.Schedulers;
+using Examples.Blackboards;
 using NodeSketch;
 using System.Threading;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace Brian
 
         public delegate void OnInitializeBlackboardDelegate(BTAgent agent);
         public OnInitializeBlackboardDelegate OnInitializeBlackboardCallback;
+
+        private ITestBlackboard m_testblackboard;
 
         void Awake()
         {
@@ -40,6 +43,17 @@ namespace Brian
             m_bt.Start(m_btAgent);
 
             BehaviourTreeManager.Instance.RunBehaviourTree(m_bt, m_btAgent);
+
+            m_testblackboard = m_btAgent.GetBlackboard<ITestBlackboard>();
+        }
+
+        private void Update()
+        {
+            if (m_testblackboard.TestInt == 100)
+            {
+                Debug.Log("Reached 100 resetting " + m_testblackboard.AgentName);
+                m_testblackboard.TestInt = 0;
+            }
         }
 
         private void OnDestroy()
