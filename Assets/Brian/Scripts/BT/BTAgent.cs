@@ -20,7 +20,7 @@ namespace Brian.BT
             m_scheduler = scheduler;
         }
 
-        public void AddBlackboard<T>(T blackboard)
+        public T AddBlackboard<T>(T blackboard)
         {
             Type[] interfaces = blackboard.GetType().GetInterfaces();
             for (int i = 0; i < interfaces.Length; i++)
@@ -28,6 +28,7 @@ namespace Brian.BT
                 Type type = interfaces[i];
                 m_blackboards.Add(type, blackboard);
             }
+            return blackboard;
         }
 
         public T GetBlackboard<T>()

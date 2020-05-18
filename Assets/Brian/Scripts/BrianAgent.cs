@@ -47,15 +47,6 @@ namespace Brian
             m_testblackboard = m_btAgent.GetBlackboard<ITestBlackboard>();
         }
 
-        private void Update()
-        {
-            if (m_testblackboard.TestInt == 100)
-            {
-                Debug.Log("Reached 100 resetting " + m_testblackboard.AgentName);
-                m_testblackboard.TestInt = 0;
-            }
-        }
-
         private void OnDestroy()
         {
             BehaviourTreeManager.Instance.StopBehaviourTree(m_btAgent);

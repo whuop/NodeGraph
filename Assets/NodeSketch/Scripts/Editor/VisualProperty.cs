@@ -78,6 +78,22 @@ namespace NodeSketch.Editor
                 {
                     visualElement = new CurveField(fieldName);
                 }
+                else if (type == typeof(Vector2))
+                {
+                    visualElement = new Vector2Field(fieldName);
+                }
+                else if (type == typeof(Vector3))
+                {
+                    visualElement = new Vector3Field(fieldName);
+                }
+                else if (type == typeof(Vector4))
+                {
+                    visualElement = new Vector4Field(fieldName);
+                }
+                else if (type == typeof(Color))
+                {
+                    visualElement = new ColorField(fieldName);
+                }
                 else
                 {
                     failed = true;
