@@ -213,7 +213,7 @@ namespace NodeSketch.Editor
         {
             //  Create the node type
             GraphNode node = new GraphNode(template.Title.Last(), template.UXMLPath, template.USSPath, template.RuntimeNodeType, m_edgeConnectorListener, null);
-            var runtimeNodeInstance = Activator.CreateInstance(template.RuntimeNodeType);
+            //var runtimeNodeInstance = Activator.CreateInstance(template.RuntimeNodeType);
 
             var fieldTemplate = m_fieldProvider.GetNodeFieldTemplateByType(template.RuntimeNodeType);
 
@@ -229,14 +229,14 @@ namespace NodeSketch.Editor
 
             foreach(var property in fieldTemplate.Properties)
             {
-                node.AddProperty(new VisualProperty(property.FieldType, runtimeNodeInstance));
+                node.AddProperty(new VisualProperty(property.FieldType, node.RuntimeInstance));
             }
 
             node.BindPortsAndProperties();
             return node;
         }
 
-        public GraphNode CreateNode(SerializedNode serializedNode, bool skipSlotsAndProperties = false)
+        public GraphNode CreateNode(SerializedNode serializedNode)
         {
             Type runtimeNodeType = serializedNode.NodeRuntimeType;
             NodeTemplate nodeTemplate = m_nodeProvider.GetTemplateFromRuntimeType(runtimeNodeType);
@@ -244,19 +244,13 @@ namespace NodeSketch.Editor
 
             node.Position = serializedNode.EditorPosition;
 
-            if (skipSlotsAndProperties)
-                return node;
-
             var fieldTemplate = m_fieldProvider.GetNodeFieldTemplateByType(runtimeNodeType);
 
-            foreach(var input in fieldTemplate.InputPorts)
+            for (int j = 0; j < serializedNode.SerializedPorts.Count; j++)
             {
-                node.AddSlot(input.CreateCopy());
-            }
-
-            foreach(var output in fieldTemplate.OutputPorts)
-            {
-                node.AddSlot(output.CreateCopy());
+                var sPort = serializedNode.SerializedPorts[j];
+                var port = new PortDescription(sPort.Guid, sPort.DisplayName, sPort.PortType, sPort.Direction, sPort.AllowMultipleConnections, sPort.AddIdenticalPortOnConnect);
+                node.AddSlot(port, false);
             }
 
             foreach (var property in fieldTemplate.Properties)

@@ -94,6 +94,10 @@ namespace NodeSketch.Editor
                 {
                     visualElement = new ColorField(fieldName);
                 }
+                else if (type == typeof(Enum))
+                {
+                    visualElement = new EnumField(fieldName);
+                }
                 else
                 {
                     failed = true;

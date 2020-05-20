@@ -81,7 +81,7 @@ namespace Brian.Editor
                 {
                     OutputAttribute output = field.GetCustomAttribute<OutputAttribute>();
                     InputAttribute input = field.GetCustomAttribute<InputAttribute>();
-                    NodeSketch.Attributes.PropertyAttribute property = field.GetCustomAttribute<NodeSketch.Attributes.PropertyAttribute>();
+                    SerializeField property = field.GetCustomAttribute<SerializeField>();
 
                     bool autoAdd = false;
                     bool isInput = input == null ? false : true;

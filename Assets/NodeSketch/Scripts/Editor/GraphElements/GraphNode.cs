@@ -106,8 +106,6 @@ namespace NodeSketch.Editor.GraphElements
             OnBindGUI();
 
             title = titleLabel;
-
-            Debug.Log("Created node with guid: " + m_serializedNode.Guid.ToString());
         }
 
         public void SynchronizeToSerializedNode()

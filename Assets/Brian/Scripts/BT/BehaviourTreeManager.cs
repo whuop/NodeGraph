@@ -63,7 +63,6 @@ namespace Brian.BT
             BehaviourTree tree = new BehaviourTree(m_blackboardManager);
             BehaviourTreeImporter.LoadGraph(graph, tree, m_blackboardManager);
             //m_loadedGraphs.Add(graph.Id, tree);
-            UnityEngine.Debug.LogError("Returning new BT!");
             return tree;
         }
     }

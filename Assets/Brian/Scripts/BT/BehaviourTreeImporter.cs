@@ -29,7 +29,8 @@ namespace Brian
                 }
                 else
                 {
-                    var task = (Task)Activator.CreateInstance(behaviourType);
+                    
+                    var task = (Task)JsonUtility.FromJson(graph.Nodes[i].NodeJSONData, behaviourType);//(Task)Activator.CreateInstance(behaviourType);
                     tasks.Add(serializedNode.Guid, task);
                     bbManager.BindTask(behaviourTree, task);
                 }

@@ -79,6 +79,19 @@ namespace NodeSketch.Editor
 
         private void SaveRequested()
         {
+            string assetPath = AssetDatabase.GetAssetPath(m_graph);
+            if (string.IsNullOrEmpty(assetPath))
+            {
+                SaveAsNew();
+            }
+            else
+            {
+                SaveOverwrite();
+            }
+        }
+
+        private void SaveAsNew()
+        {
             string path = EditorUtility.SaveFilePanelInProject("Save Graph", "graph", "asset", "Please enter a filename to save the graph to.");
             if (path.Length == 0)
             {
@@ -87,7 +100,7 @@ namespace NodeSketch.Editor
             }
 
             var nodes = m_graphView.nodes.ToList();
-            foreach(var node in nodes)
+            foreach (var node in nodes)
             {
                 ((GraphNode)node).SynchronizeToSerializedNode();
             }
@@ -102,39 +115,48 @@ namespace NodeSketch.Editor
             AssetDatabase.Refresh();
         }
 
+        private void SaveOverwrite()
+        {
+            var nodes = m_graphView.nodes.ToList();
+            foreach (var node in nodes)
+            {
+                ((GraphNode)node).SynchronizeToSerializedNode();
+            }
+
+            EditorUtility.SetDirty(m_graph);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
         private void LoadRequested()
         {
-            string path = EditorUtility.OpenFilePanel("Load Graph", "Assets/", ".asset");
+            string path = EditorUtility.OpenFilePanel("Load Graph", "Assets/", "asset");
             if (path.Length == 0)
             {
                 Debug.Log("Canceled Load.");
                 return;
             }
+
+            //  Clear current graph visually
+            m_graphView.DeleteElements(m_graphView.edges.ToList());
+            m_graphView.DeleteElements(m_graphView.nodes.ToList());
+            
             path = "Assets" + path.Substring(Application.dataPath.Length);
             
             var graph = AssetDatabase.LoadAssetAtPath<SerializedGraph>(path);
-            Debug.Log("Num Nodes: " + graph.Nodes.Count);
             if (graph == null)
             {
                 Debug.LogError("Failed to load graph!");
+                return;
             }
 
-            m_graph = ScriptableObject.CreateInstance<SerializedGraph>();
+            m_graph = graph;
 
             
             for(int i = 0; i < graph.Nodes.Count; i++)
             {
-                var node = m_searchWindowProvider.CreateNode(graph.Nodes[i], true);
-                AddNode(node, node.name);
-
-                for (int j = 0; j < graph.Nodes[i].SerializedPorts.Count; j++)
-                {
-                    var sPort = graph.Nodes[i].SerializedPorts[j];
-                    var port = new PortDescription(sPort.Guid, sPort.DisplayName, sPort.PortType, sPort.Direction, sPort.AllowMultipleConnections, sPort.AddIdenticalPortOnConnect);
-                    node.AddSlot(port, false);
-                }
-
-                node.BindPortsAndProperties();
+                var node = m_searchWindowProvider.CreateNode(graph.Nodes[i]);
+                AddNode(node, node.name, true);
             }
 
             var nodes = m_graphView.nodes.ToList();
@@ -148,8 +170,7 @@ namespace NodeSketch.Editor
                 foreach(var node in nodes)
                 {
                     GraphNode vNode = (GraphNode)node;
-                    Debug.Log("Node GUID: " + vNode.NodeGuid + " Edge GUIDS: " + serializedEdge.SourceNodeGUID + " ----> " + serializedEdge.TargetNodeGUID);
-
+                    
                     if (vNode.NodeGuid == serializedEdge.SourceNodeGUID)
                     {
                         from = vNode.FindSlot<PortDescription>(serializedEdge.SourcePortMemberName).VisualPort;
@@ -172,9 +193,8 @@ namespace NodeSketch.Editor
 
                 if (from != null && to != null)
                 {
-                    Debug.Log("Creating Edge!");
-                     var edge = from.ConnectTo(to);
-                    AddEdgeLoad(edge);
+                    var edge = from.ConnectTo(to);
+                    AddEdgeLoad(edge, true);
                 }
             }
         }
@@ -323,7 +343,7 @@ namespace NodeSketch.Editor
             node.MarkDirtyRepaint();
         }
 
-        public void AddEdgeLoad(Edge edgeVisual)
+        public void AddEdgeLoad(Edge edgeVisual, bool supressGraphAdd = false)
         {
             PortDescription leftPortDescription;
             PortDescription rightPortDescription;
@@ -332,6 +352,9 @@ namespace NodeSketch.Editor
             edgeVisual.output.Connect(edgeVisual);
             edgeVisual.input.Connect(edgeVisual);
             m_graphView.AddElement(edgeVisual);
+            if (supressGraphAdd)
+                return;
+
             m_graph.AddEdge(new SerializedEdge()
             {
                 SourceNodeGUID = leftPortDescription.Owner.NodeGuid,

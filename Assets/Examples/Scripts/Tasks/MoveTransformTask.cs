@@ -16,21 +16,11 @@ namespace Examples.Tasks
         [Request]
         private ITransformBlackboard m_transform { get; set; }
 
-        [NodeSketch.Attributes.Property]
         [SerializeField]
         private float m_movementSpeed = 10.0f;
 
-        [NodeSketch.Attributes.Property]
         [SerializeField]
         private Vector3 m_direction = new Vector3(0, 0, 1);
-
-        [NodeSketch.Attributes.Property]
-        [SerializeField]
-        private AnimationCurve TestCurve;
-
-        [NodeSketch.Attributes.Property]
-        [SerializeField]
-        private Color TestColor;
 
         public override void OnInitialize()
         {
@@ -39,10 +29,12 @@ namespace Examples.Tasks
 
         public override Status OnUpdate()
         {
-            Debug.Log("Transform: " + m_transform);
+            Debug.Log("Transform: " + m_transform.Position);
             Vector3 newPos = m_transform.Position + m_direction * m_time.DeltaTime * m_movementSpeed;
 
             Debug.Log($"New Position: {m_time.DeltaTime}");
+            Debug.Log("Direction: " + m_direction);
+            Debug.Log("MovementSpeed: " + m_movementSpeed);
             return Status.Success;
         }
 
