@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Blackboard = NodeSketch.Editor.GraphElements.Blackboard;
 
 namespace NodeSketch.Editor
 {
@@ -17,6 +18,7 @@ namespace NodeSketch.Editor
         private SearchWindowProvider m_searchWindowProvider;
         private NodeProvider m_nodeProvider;
         private FieldProvider m_fieldProvider;
+        private Blackboard m_blackboard;
 
         public NodeSketchEditorView(EditorWindow window, NodeProvider nodeProvider, FieldProvider fieldProvider)
         {
@@ -28,11 +30,18 @@ namespace NodeSketch.Editor
             
             styleSheets.Add(Resources.Load<StyleSheet>("Styles/EditorView"));
 
+            //    Add Toolbar
             Add(CreateToolbar());
             var contentView = CreateContentView();
             Add(contentView);   
             
-
+            //    Add Blackboard
+            m_blackboard = new Blackboard(contentView, m_graphView);
+            
+            Debug.Log($"Associated blackbaord {m_graphView.GetBlackboard()}");
+            m_graphView.GetBlackboard()
+            
+            
             m_searchWindowProvider = ScriptableObject.CreateInstance<SearchWindowProvider>();
             m_searchWindowProvider.Initialize(window, this, nodeProvider, m_fieldProvider, m_graphView);
             m_edgeConnectorListener = new EdgeConnectorListener(this, m_searchWindowProvider);
@@ -43,8 +52,6 @@ namespace NodeSketch.Editor
                 m_searchWindowProvider.ConnectedVisualPort = null;
                 SearchWindow.Open(new SearchWindowContext(c.screenMousePosition), m_searchWindowProvider);
             };
-
-            
 
             m_graphView.OnDeleteGraphNode += OnDeleteGraphNode;
             m_graphView.OnDeleteEdge += OnDeleteEdge;

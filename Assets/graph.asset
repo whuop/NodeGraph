@@ -12,51 +12,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57defa6f0485d3240b22770f786a243f, type: 3}
   m_Name: graph
   m_EditorClassIdentifier: 
-  m_id: 2026aefc-5137-4868-aee8-8c2f6ed56c67
+  m_id: 4c771f76-1ba2-406d-ae5d-4f51b1409ccf
   m_nodes:
-  - m_guid: 196a9703-a372-445b-8fd8-238f82441110
+  - m_guid: 003337d9-bbb6-48eb-8485-ed739c47002b
     m_nodeRuntimeTypeString: Brian.BT.Behaviours.EntryTask, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: 734, y: 406, z: 0}
+    m_editorPosition: {x: 1716, y: 329, z: 0}
     m_nodeJsonData: '{}'
     m_isExpanded: 1
     m_serializedPorts:
-    - m_guid: 599c84c9-9df9-4714-930f-1ffe42b1e599
+    - m_guid: 48524733-a464-47c2-97ed-3dce5f69aec3
       m_displayName: Output
       m_direction: 1
       m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       m_allowMultipleConnections: 0
       m_addIdenticalPortOnConnect: 0
-  - m_guid: 0b885df0-c182-4a2b-bc68-a6a04a4ffa4c
+  - m_guid: c153ebd9-f472-41b9-949a-5a11aea4afe3
     m_nodeRuntimeTypeString: Brian.BT.Behaviours.RepeatAlways, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: 1188, y: 410, z: 0}
+    m_editorPosition: {x: 2140, y: 328, z: 0}
     m_nodeJsonData: '{}'
     m_isExpanded: 1
     m_serializedPorts:
-    - m_guid: b6a60f18-bd9b-4f1b-a212-75c882a0c438
+    - m_guid: 5f7314f5-ef8d-499b-b49c-73fa1c812456
       m_displayName: Input
       m_direction: 0
       m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       m_allowMultipleConnections: 0
       m_addIdenticalPortOnConnect: 0
-    - m_guid: b2f662e0-3b79-4935-b89f-6d9fdb64f695
+    - m_guid: 0c4d0d2c-c66f-4a8a-821c-a2cb283c15c0
       m_displayName: Output
       m_direction: 1
       m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       m_allowMultipleConnections: 0
       m_addIdenticalPortOnConnect: 0
-  - m_guid: 2b97a103-86db-42a4-a064-6853dd6d56b8
-    m_nodeRuntimeTypeString: Examples.Tasks.TestTask, Assembly-CSharp, Version=0.0.0.0,
+  - m_guid: c3dc764c-ce41-45f8-aeb1-e6f7c8c0b917
+    m_nodeRuntimeTypeString: Examples.Tasks.MoveTransformTask, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_editorPosition: {x: 1601, y: 414, z: 0}
-    m_nodeJsonData: '{}'
+    m_editorPosition: {x: 2549, y: 325, z: 0}
+    m_nodeJsonData: "{\n    \"m_movementSpeed\": 25.0,\n    \"m_direction\": {\n       
+      \"x\": 1.0,\n        \"y\": 0.0,\n        \"z\": 1.0\n    }\n}"
     m_isExpanded: 1
     m_serializedPorts:
-    - m_guid: 0769f997-e794-4363-8034-39366fe91573
+    - m_guid: f24f8eda-b6f7-4fc1-82bb-53c28cd467e4
       m_displayName: Input
       m_direction: 0
       m_portType: Brian.BT.Behaviours.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -64,11 +65,11 @@ MonoBehaviour:
       m_allowMultipleConnections: 0
       m_addIdenticalPortOnConnect: 0
   m_edges:
-  - m_sourceNodeGUID: 196a9703-a372-445b-8fd8-238f82441110
-    m_sourcePortMemberName: 599c84c9-9df9-4714-930f-1ffe42b1e599
-    m_targetNodeGUID: 0b885df0-c182-4a2b-bc68-a6a04a4ffa4c
-    m_targetPortMemberName: b6a60f18-bd9b-4f1b-a212-75c882a0c438
-  - m_sourceNodeGUID: 0b885df0-c182-4a2b-bc68-a6a04a4ffa4c
-    m_sourcePortMemberName: b2f662e0-3b79-4935-b89f-6d9fdb64f695
-    m_targetNodeGUID: 2b97a103-86db-42a4-a064-6853dd6d56b8
-    m_targetPortMemberName: 0769f997-e794-4363-8034-39366fe91573
+  - m_sourceNodeGUID: 003337d9-bbb6-48eb-8485-ed739c47002b
+    m_sourcePortMemberName: 48524733-a464-47c2-97ed-3dce5f69aec3
+    m_targetNodeGUID: c153ebd9-f472-41b9-949a-5a11aea4afe3
+    m_targetPortMemberName: 5f7314f5-ef8d-499b-b49c-73fa1c812456
+  - m_sourceNodeGUID: c153ebd9-f472-41b9-949a-5a11aea4afe3
+    m_sourcePortMemberName: 0c4d0d2c-c66f-4a8a-821c-a2cb283c15c0
+    m_targetNodeGUID: c3dc764c-ce41-45f8-aeb1-e6f7c8c0b917
+    m_targetPortMemberName: f24f8eda-b6f7-4fc1-82bb-53c28cd467e4
