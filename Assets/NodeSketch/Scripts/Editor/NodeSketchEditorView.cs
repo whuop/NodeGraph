@@ -39,9 +39,11 @@ namespace NodeSketch.Editor
             m_blackboard = new Blackboard(contentView, m_graphView);
             
             Debug.Log($"Associated blackbaord {m_graphView.GetBlackboard()}");
-            m_graphView.GetBlackboard()
-            
-            
+            //m_graphView.GetBlackboard()
+
+            var pill = new Pill(new VisualElement(), new Label("Test"));
+            m_graphView.Add(pill);
+
             m_searchWindowProvider = ScriptableObject.CreateInstance<SearchWindowProvider>();
             m_searchWindowProvider.Initialize(window, this, nodeProvider, m_fieldProvider, m_graphView);
             m_edgeConnectorListener = new EdgeConnectorListener(this, m_searchWindowProvider);
