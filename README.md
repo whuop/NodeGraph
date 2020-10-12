@@ -6,10 +6,10 @@ Also contains a multithreaded Behaviour Tree implementation, which uses a schedu
 
 Images of WIP UI
 
-!()[/graph_view.png]
+![](/graph_view.png)
 
-!()[/graph_view2.png]
+![](/graph_view2.png)
 
-!()[/add_behaviour.png]
+![](/add_behaviour.png)
 
 # This library is WIP!
